@@ -2,8 +2,7 @@ import React, { useRef } from "react"
 import "./Login.css"
 
 export const Register = (props) => {
-    const firstName = useRef()
-    const lastName = useRef()
+    const username = useRef()
     const email = useRef()
     const password = useRef()
     const verifyPassword = useRef()
@@ -11,7 +10,7 @@ export const Register = (props) => {
     const conflictDialog = useRef()
 
     const existingUserCheck = () => {
-        return fetch(`http://localhost:8088/users?email=${email.current.value}`)
+        return fetch(`http://localhost:8088/users?username=${username.current.value}`)
             .then(_ => _.json())
             .then(user => !!user.length)
     }
@@ -29,9 +28,8 @@ export const Register = (props) => {
                                 "Content-Type": "application/json"
                             },
                             body: JSON.stringify({
-                                email: email.current.value,
+                                email: username.current.value,
                                 password: password.current.value,
-                                name: `${firstName.current.value} ${lastName.current.value}`
                             })
                         })
                             .then(_ => _.json())
@@ -60,22 +58,14 @@ export const Register = (props) => {
             </dialog>
 
             <dialog className="dialog dialog--password" ref={conflictDialog}>
-                <div>Account with that email address already exists</div>
+                <div>Account with that username address already exists</div>
                 <button className="button--close" onClick={e => conflictDialog.current.close()}>Close</button>
             </dialog>
 
             <form className="form--login" onSubmit={handleRegister}>
                 <h1 className="h3 mb-3 font-weight-normal">Please Register for NSS The Game</h1>
                 <fieldset>
-                    <label htmlFor="firstName"> First Name </label>
-                    <input ref={firstName} type="text" name="firstName" className="form-control" placeholder="First name" required autoFocus />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="lastName"> Last Name </label>
-                    <input ref={lastName} type="text" name="lastName" className="form-control" placeholder="Last name" required />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="inputEmail"> Email address </label>
+                    <label htmlFor="inputEmail"> Username </label>
                     <input ref={email} type="email" name="email" className="form-control" placeholder="Email address" required />
                 </fieldset>
                 <fieldset>

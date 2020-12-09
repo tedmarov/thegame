@@ -8,7 +8,6 @@ import "./TheGame.css"
 
 export const TheGame = () => (
     <>
-        <h2>The Game</h2>
         <small>Anytime you play, think of The Game</small>
         <address>
             <div>Visit us at our campus</div>
