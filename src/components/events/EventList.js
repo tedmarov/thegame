@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react"
 import { EventContext } from "./EventProvider.js"
 import { Event } from "./Event.js"
-import "./Events.css"
+import "./Event.css"
 
 export const EventList = () => {
     // This state changes when `getEvents()` is invoked below
