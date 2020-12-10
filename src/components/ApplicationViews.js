@@ -30,7 +30,7 @@ export const ApplicationViews = (props) => {
 
             <EventProvider>
                 {/* Render the Event list when http://localhost:3000/ */}
-                <Route path="/events" render={
+                <Route exact path="/events" render={
                     props => <EventList {...props} />
                 } />
 

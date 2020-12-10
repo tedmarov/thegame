@@ -13,13 +13,13 @@ export const GameProvider = (props) => {
     const [games, setGames] = useState([])
 
     const getGames = () => {
-        return fetch("http://localhost:8088/Game")
+        return fetch("http://localhost:8088/games")
             .then(res => res.json())
             .then(setGames)
     }
 
     const addGame = game => {
-        return fetch("http://localhost:8088/Game", {
+        return fetch("http://localhost:8088/games", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

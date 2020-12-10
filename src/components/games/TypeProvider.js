@@ -13,13 +13,13 @@ export const TypeProvider = (props) => {
     const [types, setTypes] = useState([])
 
     const getTypes = () => {
-        return fetch("http://localhost:8088/Type")
+        return fetch("http://localhost:8088/types")
             .then(res => res.json())
             .then(setTypes)
     }
 
     const addType = type => {
-        return fetch("http://localhost:8088/Type", {
+        return fetch("http://localhost:8088/types", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

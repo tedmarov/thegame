@@ -52,7 +52,7 @@ export const Register = (props) => {
                             .then(createdUser => {
                                 if (createdUser.hasOwnProperty("id")) {
                                     localStorage.setItem("game_player", createdUser.id)
-                                    props.history.push("/")
+                                    props.history.push("/dashboard")
                                 }
                             })
                     }

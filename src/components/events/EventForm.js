@@ -47,7 +47,7 @@ export const EventForm = (props) => {
         const eventHostId = parseInt(localStorage.getItem("game_player"))
         const eventLoc = location.current.value
         const eventDateAndTime = when.current.value
-        const isActive = active.current.checked
+        const isActive = active.current.value
         const details = description.current.value
 
         if (typeId === 0 || gameId === 0) {
@@ -87,7 +87,7 @@ export const EventForm = (props) => {
                 <div className="form-group">
                     <label htmlFor="game"> Select Game </label>
                     <select defaultValue="" name="game" ref={game} id="GameName" className="form-control" >
-                        <option value="0">Select type</option>
+                        <option value="0">Select game</option>
                         {games.map(g => (
                             <option key={g.id} value={g.id}>
                                 {g.title}
@@ -116,7 +116,7 @@ export const EventForm = (props) => {
             </fieldset>
             <fieldset>
                 <label htmlFor="detail"> Short Description </label>
-                <textarea ref={description} type="text" rows="3" cols="20" name="detail" className="form-control" placeholder="Enter description here" required />
+                <textarea ref={description} type="text" rows="3" cols="20" name="detail" className="form-control" placeholder="Enter description" required />
             </fieldset>
             <button type="submit"
                 onClick={evt => {

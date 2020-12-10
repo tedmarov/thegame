@@ -27,7 +27,7 @@ export const EventList = (props) => {
     // }, [events])
 
     return (
-        <div className="events">
+        <div className="event">
             {
                 events.map(eve => <Event key={eve.id} event={eve} />)
             }
