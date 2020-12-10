@@ -21,10 +21,10 @@ export const EventList = () => {
         This effect is solely for learning purposes. The effect
         it is responding to is that the Event state changed.
     */
-    useEffect(() => {
-        console.log("EventList: Event state changed")
-        console.log(events)
-    }, [events])
+    // useEffect(() => {
+    //     console.log("EventList: Event state changed")
+    //     console.log(events)
+    // }, [events])
 
     return (
         <div className="events">

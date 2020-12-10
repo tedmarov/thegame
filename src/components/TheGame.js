@@ -4,15 +4,11 @@ import { ApplicationViews } from "./ApplicationViews"
 import { NavBar } from "./nav/NavBar"
 import { Login } from "./auth/Login"
 import { Register } from "./auth/Register"
+import { AgeRangeProvider } from "./auth/ageRangeProvider.js"
 import "./TheGame.css"
 
 export const TheGame = () => (
     <>
-        <small>Anytime you play, think of The Game</small>
-        <address>
-            <div>Visit us at our campus</div>
-            <div>301 Plus Park Blvd #300</div>
-        </address>
         <Route render={() => {
             if (localStorage.getItem("game_player")) {
                 return (
@@ -27,6 +23,8 @@ export const TheGame = () => (
         }} />
 
         <Route path="/login" render={props => <Login {...props} />} />
-        <Route path="/register" render={props => <Register {...props} />} />
+        <AgeRangeProvider>
+            <Route path="/register" render={props => <Register {...props} />} />
+        </AgeRangeProvider>
     </>
 )
