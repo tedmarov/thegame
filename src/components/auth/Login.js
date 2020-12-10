@@ -21,6 +21,7 @@ export const Login = props => {
         existingUserCheck()
             .then(exists => {
                 if (exists && exists.password === password.current.value) {
+                    // The user id is saved under the key game_player in local Storage. Change below if needed!
                     localStorage.setItem("game_player", exists.id)
                     props.history.push("/")
                 } else if (exists && exists.password !== password.current.value) {

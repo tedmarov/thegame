@@ -9,26 +9,30 @@ export const ApplicationViews = (props) => {
         <>
             <EventProvider>
                 {/*Goes to Dashboard*/}
-                <Route exact path="/">
+                <Route exact path="/" >
                     <Dashboard />
                 </Route>
             </EventProvider>
 
             <EventProvider>
                 {/* Render the Event list when http://localhost:3000/ */}
-                <Route exact path="/events">
-                    <EventList />
-                </Route>
+                <Route exact path="/events" render={
+                    props => <EventList {...props} />
+                } />
+
+                <Route exact path="/employees/create" render={
+                    props => <EventForm {...props} />
+                } />
             </EventProvider>
 
         </>
     )
 }
 
-/* import { AnimalProvider } from "./animal/AnimalProvider"
-import { AnimalList } from "./animal/AnimalList"
+/* import {AnimalProvider} from "./animal/AnimalProvider"
+import {AnimalList} from "./animal/AnimalList"
  <AnimalProvider>
-{/* Render the animal list when http://localhost:3000/animals }}
+                    {/* Render the animal list when http://localhost:3000/animals }}
     <Route path="/events">
         <AnimalList />
     </Route>
