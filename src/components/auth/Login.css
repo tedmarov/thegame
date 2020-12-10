@@ -44,7 +44,8 @@ fieldset {
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.container--login {
+.container--login,
+.container--Register {
   text-align: center;
 }
 

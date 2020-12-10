@@ -5,13 +5,14 @@ import "./Login.css"
 export const Register = (props) => {
     const { ageRanges, getAgeRanges } = useContext(AgeRangeContext)
 
-    const picUrl = useRef()
+    const picUrl = useRef("")
     const username = useRef()
     const email = useRef()
     const password = useRef()
     const verifyPassword = useRef()
     const locationPreference = useRef()
     const ageRangeId = useRef()
+    const shortBio = useRef()
     const passwordDialog = useRef()
     const conflictDialog = useRef()
 
@@ -38,8 +39,13 @@ export const Register = (props) => {
                                 "Content-Type": "application/json"
                             },
                             body: JSON.stringify({
-                                email: username.current.value,
+                                picUrl: picUrl.current.value,
+                                username: username.current.value,
                                 password: password.current.value,
+                                email: email.current.value,
+                                locationPreference: locationPreference.current.value,
+                                ageRange: parseInt(ageRangeId.current.value),
+                                shortBio: shortBio.current.value
                             })
                         })
                             .then(_ => _.json())
@@ -60,7 +66,7 @@ export const Register = (props) => {
     }
 
     return (
-        <main style={{ textAlign: "center" }}>
+        <main className="container--Register" style={{ textAlign: "center" }}>
 
             <dialog className="dialog dialog--password" ref={passwordDialog}>
                 <div>Passwords do not match</div>
@@ -73,13 +79,17 @@ export const Register = (props) => {
             </dialog>
 
             <form className="form--login" onSubmit={handleRegister}>
-                <h1 className="h3 mb-3 font-weight-normal">Please register for NSS The Game</h1>
+                <h2 className="h3 mb-3 font-weight-normal">Register for NSS The Game</h2>
                 <fieldset>
                     <label htmlFor="selectPic"> Upload Pic </label>
                     <input ref={picUrl} type="text" name="picUrl" className="form-control" placeholder="" />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="inputEmail"> Username </label>
+                    <input ref={username} type="username" name="username" className="form-control" placeholder="Username" required />
+                </fieldset>
+                <fieldset>
+                    <label htmlFor="inputEmail"> Email </label>
                     <input ref={email} type="email" name="email" className="form-control" placeholder="Email address" required />
                 </fieldset>
                 <fieldset>
@@ -95,7 +105,7 @@ export const Register = (props) => {
                     <input ref={locationPreference} type="text" name="locationPreference" className="form-control" placeholder="Enter location" required />
                 </fieldset>
                 <fieldset>
-                    <label htmlFor="ageRange"> Choose your Age Range: </label>
+                    <label htmlFor="ageRange"> Choose your Age Range </label>
                     <select defaultValue="" name="ageRange" ref={ageRangeId} id="ageRange" className="form-control" >
                         <option value="0"> Select your Age Range </option>
                         {ageRanges.map(aR => (
@@ -105,9 +115,13 @@ export const Register = (props) => {
                         ))}
                     </select>
                 </fieldset>
+                <fieldset>
+                    <label htmlFor="detail"> Short Bio </label>
+                    <textarea ref={shortBio} type="text" rows="3" cols="20" name="detail" className="form-control" placeholder="Enter detail here" required />
+                </fieldset>
 
                 <fieldset>
-                    <button type="submit"> Sign in </button>
+                    <button type="submit"> Register </button>
                 </fieldset>
             </form>
         </main>
