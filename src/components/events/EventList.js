@@ -3,7 +3,7 @@ import { EventContext } from "./EventProvider.js"
 import { Event } from "./Event.js"
 import "./Event.css"
 
-export const EventList = () => {
+export const EventList = (props) => {
     // This state changes when `getEvents()` is invoked below
     const { events, getEvents } = useContext(EventContext)
 

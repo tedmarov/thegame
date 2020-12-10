@@ -1,12 +1,13 @@
 import React, { useContext, useRef, useEffect } from "react"
 import { EventContext } from "./EventProvider.js"
 import { GameContext } from "../games/GameProvider.js"
-import { TypesContext } from "../games/TypesProvider.js"
-import "./Events.css"
+import { TypeContext } from "../games/TypeProvider.js"
+import "./Event.css"
 
 export const EventForm = (props) => {
     const { addEvent } = useContext(EventContext)
-    const { locations, getLocations } = useContext(LocationContext)
+    const { games, getGames } = useContext(GameContext)
+    const { types, getTypes } = useContext(TypeContext)
 
     /*
     Create references that can be attached to the input
@@ -16,62 +17,67 @@ export const EventForm = (props) => {
     
     No more `document.querySelector()` in React.
     */
+
+    const type = useRef(null)
+    const game = useRef(null)
     const name = useRef(null)
+    const when = useRef(null)
     const location = useRef(null)
-    const manager = useRef(false)
-    const status = useRef(null)
-    const pay = useRef(null)
+    const description = useRef(null)
+    const active = useRef(true)
 
     /*
         Get Products state and location state on initialization.
     */
     useEffect(() => {
-        getLocations()
+        getTypes().then(getGames)
     }, [])
 
-    const constructNewEmployee = () => {
+    const constructNewEvent = () => {
         /*
             The `location` and `products` variables below are
             the references attached to the input fields. You
             can't just ask for the `.value` property directly,
             but rather `.current.value` now in React.
         */
-        const locationId = parseInt(location.current.value)
-        const hourlyRate = pay.current.value //May need to adjust to decimal places
-        const isManager = manager.current.checked
-        const isFullTime = status.current.checked
 
-        if (locationId === 0) {
-            window.alert("Please select a location")
+        const typeId = parseInt(type.current.value)
+        const gameId = parseInt(game.current.value)
+        const eventName = name.current.value
+        const eventHostId = parseInt(localStorage.getItem("game_player"))
+        const eventLoc = location.current.value
+        const eventDateAndTime = when.current.value
+        const isActive = active.current.checked
+        const details = description.current.value
+
+        if (typeId === 0 || gameId === 0) {
+            window.alert("Please select a type or game")
         } else {
-            addEmployee({
-                name: name.current.value,
-                locationId,
-                isManager,
-                isFullTime,
-                hourlyRate
+            addEvent({
+                typeId,
+                gameId,
+                eventName,
+                eventHostId,
+                eventLoc,
+                eventDateAndTime,
+                isActive,
+                details
             })
-                .then(() => props.history.push("/employees"))
+                .then(() => props.history.push("/events"))
         }
     }
 
     return (
-        <form className="employeeForm">
-            <h2 className="employeeForm__title">New Employee</h2>
+        <form className="eventForm">
+            <h2 className="eventForm__title">New Event</h2>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="employeeName">Employee name: </label>
-                    <input type="text" id="employeeName" ref={name} required autoFocus className="form-control" placeholder="Employee name" />
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="location">Assign to location: </label>
-                    <select defaultValue="" name="location" ref={location} id="employeeLocation" className="form-control" >
-                        <option value="0">Select a location</option>
-                        {locations.map(e => (
-                            <option key={e.id} value={e.id}>
-                                {e.address}
+                    <label htmlFor="type"> Select Game Type </label>
+                    <select defaultValue="" name="type" ref={type} id="GameType" className="form-control" >
+                        <option value="0">Select type</option>
+                        {types.map(t => (
+                            <option key={t.id} value={t.id}>
+                                {t.category}
                             </option>
                         ))}
                     </select>
@@ -79,29 +85,46 @@ export const EventForm = (props) => {
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="manager">Is Manager? </label>
-                    <input type="checkbox" ref={manager} />
+                    <label htmlFor="game"> Select Game </label>
+                    <select defaultValue="" name="game" ref={game} id="GameName" className="form-control" >
+                        <option value="0">Select type</option>
+                        {games.map(g => (
+                            <option key={g.id} value={g.id}>
+                                {g.title}
+                            </option>
+                        ))}
+                    </select>
                 </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="status">Is FullTime? </label>
-                    <input type="checkbox" ref={status} />
+                    <label htmlFor="eventName">Event name: </label>
+                    <input type="text" id="eventName" ref={name} required autoFocus className="form-control" placeholder="Event name" />
                 </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="hourlyRate">Hourly rate: </label>
-                    <input type="number" required name="hourlyRate" ref={pay} min="0" step=".01" />
+                    <label htmlFor="eventLoc">Event location: </label>
+                    <input type="text" id="eventLoc" ref={location} required autoFocus className="form-control" placeholder="Location name" />
                 </div>
+            </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="eventDateAndTime">Event Date and Time: </label>
+                    <input type="text" id="eventDateAndTime" ref={when} required autoFocus className="form-control" placeholder="Event date and time" />
+                </div>
+            </fieldset>
+            <fieldset>
+                <label htmlFor="detail"> Short Description </label>
+                <textarea ref={description} type="text" rows="3" cols="20" name="detail" className="form-control" placeholder="Enter description here" required />
             </fieldset>
             <button type="submit"
                 onClick={evt => {
                     evt.preventDefault() // Prevent browser from submitting the form
-                    constructNewEmployee()
+                    constructNewEvent()
                 }}
                 className="btn btn-primary">
-                Save Employee
+                Save Event
             </button>
         </form>
     )

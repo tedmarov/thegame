@@ -1,28 +1,39 @@
 import React from "react"
 import { Route } from "react-router-dom"
 import { EventProvider } from "./events/EventProvider.js"
+import { TypeProvider } from "./games/TypeProvider.js"
+import { GameProvider } from "./games/GameProvider.js"
 import { EventList } from "./events/EventList.js"
 import { Dashboard } from "./nav/Dashboard.js"
+import { EventForm } from "./events/EventForm.js"
 
 export const ApplicationViews = (props) => {
     return (
         <>
-            <EventProvider>
-                {/*Goes to Dashboard*/}
-                <Route exact path="/" >
-                    <Dashboard />
-                </Route>
-            </EventProvider>
+
+            <GameProvider>
+                <TypeProvider>
+
+                    <EventProvider>
+                        {/*Goes to Dashboard*/}
+                        <Route exact path="/dashboard" render={
+                            props => <Dashboard {...props} />
+                        } />
+
+
+                        <Route exact path="/events/create" render={
+                            props => <EventForm {...props} />
+                        } />
+                    </EventProvider>
+                </TypeProvider>
+            </GameProvider>
 
             <EventProvider>
                 {/* Render the Event list when http://localhost:3000/ */}
-                <Route exact path="/events" render={
+                <Route path="/events" render={
                     props => <EventList {...props} />
                 } />
 
-                <Route exact path="/employees/create" render={
-                    props => <EventForm {...props} />
-                } />
             </EventProvider>
 
         </>
