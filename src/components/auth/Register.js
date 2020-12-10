@@ -13,6 +13,7 @@ export const Register = (props) => {
     const locationPreference = useRef()
     const ageRangeId = useRef()
     const shortBio = useRef()
+    const consent = useRef()
     const passwordDialog = useRef()
     const conflictDialog = useRef()
 
@@ -45,7 +46,8 @@ export const Register = (props) => {
                                 email: email.current.value,
                                 locationPreference: locationPreference.current.value,
                                 ageRange: parseInt(ageRangeId.current.value),
-                                shortBio: shortBio.current.value
+                                shortBio: shortBio.current.value,
+                                consent: Boolean(consent.current.checked)
                             })
                         })
                             .then(_ => _.json())
@@ -107,7 +109,7 @@ export const Register = (props) => {
                 <fieldset>
                     <label htmlFor="ageRange"> Choose your Age Range </label>
                     <select defaultValue="" name="ageRange" ref={ageRangeId} id="ageRange" className="form-control" >
-                        <option value="0"> Select your Age Range </option>
+                        <option value="0"> Age Range </option>
                         {ageRanges.map(aR => (
                             <option key={aR.id} value={aR.id}>
                                 {aR.ageRange}
@@ -119,7 +121,12 @@ export const Register = (props) => {
                     <label htmlFor="detail"> Short Bio </label>
                     <textarea ref={shortBio} type="text" rows="3" cols="20" name="detail" className="form-control" placeholder="Enter detail here" required />
                 </fieldset>
-
+                <fieldset>
+                    <div className="form-group">
+                        <input type="checkbox" ref={consent} required />
+                        <label htmlFor="status"> By checking the box, I confirm that I am 18+ or am a parent/guardian signing up for someone underage. </label>
+                    </div>
+                </fieldset>
                 <fieldset>
                     <button type="submit"> Register </button>
                 </fieldset>
