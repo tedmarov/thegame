@@ -47,7 +47,6 @@ export const EventForm = (props) => {
         const eventHostId = parseInt(localStorage.getItem("game_player"))
         const eventLoc = location.current.value
         const eventDateAndTime = when.current.value
-        const isActive = active.current.value
         const details = description.current.value
 
         if (typeId === 0 || gameId === 0) {
@@ -60,7 +59,6 @@ export const EventForm = (props) => {
                 eventHostId,
                 eventLoc,
                 eventDateAndTime,
-                isActive,
                 details
             })
                 .then(() => props.history.push("/events"))
