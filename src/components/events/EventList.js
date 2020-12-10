@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react"
+import { Link } from "react-router-dom"
 import { EventContext } from "./EventProvider.js"
 import { Event } from "./Event.js"
 import "./Event.css"
@@ -29,8 +30,13 @@ export const EventList = (props) => {
     return (
         <div className="event">
             {
-                events.map(eve => <Event key={eve.id} event={eve} />)
-            }
-        </div>
-    )
+                events.map(eve => {
+                    return (<div className="eventCard">
+                        < Link key={eve.id} to={`/events/${eve.id}`}>
+                            <h3>{eve.eventName}</h3>
+                        </Link>
+                    </div>
+                    )
+                })}
+        </div>)
 }
