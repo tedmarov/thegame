@@ -14,7 +14,7 @@ export const Dashboard = (props) => {
         then gets the data, then re-renders.
     */
     useEffect(() => {
-        console.log("EventList: Initial render before data")
+        console.log("This is a test")
         getEvents()
     }, [])
 
