@@ -43,7 +43,7 @@ export const Login = props => {
             </dialog>
             <section>
                 <form className="form--login" onSubmit={handleLogin}>
-                    <h1>The Game</h1>
+                    <h1></h1>
                     <h2>Please sign in</h2>
                     <fieldset>
                         <label htmlFor="inputUsername"> Username </label>
@@ -69,7 +69,7 @@ export const Login = props => {
                 </form>
             </section>
             <section className="link--register">
-                <Link to="/register">Not a member yet?</Link>
+                <Link to="/register">Not a member yet? Register here</Link>
             </section>
         </main>
     )
