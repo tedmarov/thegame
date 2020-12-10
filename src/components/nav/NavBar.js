@@ -20,7 +20,7 @@ export const NavBar = (props) => {
                 <Link className="navbar__link" to="/events">Events</Link>
             </li>
             <li className="navbar__item" >
-                <Link className="navbar__link" onClick={handleLogout}>Logout</Link>
+                <Link className="navbar__link" onClick={(e) => { if (window.confirm('Are you sure you wish to log out?')) { handleLogout(e) } }}>Logout</Link>
             </li>
         </ul>
     )
