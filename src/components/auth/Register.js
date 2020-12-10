@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useEffect } from "react"
-import { AgeRangeContext } from "./ageRangeProvider.js"
+import { AgeRangeContext } from "./AgeRangeProvider.js"
 import "./Login.css"
 
 export const Register = (props) => {
@@ -52,7 +52,7 @@ export const Register = (props) => {
                             .then(createdUser => {
                                 if (createdUser.hasOwnProperty("id")) {
                                     localStorage.setItem("game_player", createdUser.id)
-                                    props.history.push("/")
+                                    props.history.push("/dashboard")
                                 }
                             })
                     }

@@ -4,7 +4,7 @@ import { ApplicationViews } from "./ApplicationViews"
 import { NavBar } from "./nav/NavBar"
 import { Login } from "./auth/Login"
 import { Register } from "./auth/Register"
-import { AgeRangeProvider } from "./auth/ageRangeProvider.js"
+import { AgeRangeProvider } from "./auth/AgeRangeProvider.js"
 import "./TheGame.css"
 
 export const TheGame = () => (
