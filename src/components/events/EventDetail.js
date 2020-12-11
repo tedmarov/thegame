@@ -3,28 +3,31 @@ import { GameContext } from "../games/GameProvider.js"
 import { TypeContext } from "../games/TypeProvider.js"
 import { UserContext } from "../users/UserProvider.js"
 import { EventContext } from "./EventProvider.js"
-//import { AttendeeContext } from "./users/UserEventsProvider.js"
+import { UserEventContext } from "../users/UserEventsProvider.js"
 import "./Event.css"
+
+//Attendee > pull in data from 3 tables > start from events, use userEvent.EventId from userEvent to match userEvent.EventId to events.id
+// To get to the users table > match users.id to userEvent.userid
 
 export const EventDetail = (props) => {
     const { games, getGames } = useContext(GameContext)
     const { types, getTypes } = useContext(TypeContext)
     const { users, getUsers } = useContext(UserContext)
     const { events, getEvents } = useContext(EventContext)
-    //const { attendees, getAttendees } = useContext(AttendeeContext ) = useContext(EventContext)
+    const { userEvents, getUserEvents } = useContext(UserEventContext)
 
     const [game, setGame] = useState({})
     const [event, setEvent] = useState({})
     const [type, setType] = useState({})
     const [user, setUser] = useState({})
-    //const [attendee, setAttendee] = useState({})
+    const [userEvent, setUserEvent] = useState({})
 
     useEffect(() => {
         getEvents()
             .then(getGames)
             .then(getTypes)
             .then(getUsers)
-        //.then(getAttendees)
+            .then(getUserEvents)
     }, [])
 
     useEffect(() => {
@@ -46,9 +49,12 @@ export const EventDetail = (props) => {
         const user = users.find(u => u.id === event.eventHostId) || {}
         setUser(user)
     }, [users])
-    //useEffect(() => {
-    // code to match event to attendees
-    //
+
+    useEffect(() => {
+        const userEvent = userEvents.find(uE => uE.eventId === event.id && uE.userId === users.id) || {}
+        setUserEvent(userEvent)
+        console.log(userEvent)
+    }, [userEvents])
 
     // This section will probaby have the joinEvent function. It takes (event) as a parameter
 
@@ -71,9 +77,9 @@ export const EventDetail = (props) => {
             <div>Game: {game.title} Category: {type.category}</div>
             <div>Hosted By: {user.username}</div>
             <h3>Details: {event.details}</h3>
-            <div>Going: </div>
-            {//{userEvent.attendeeId}*/
-            }
+            <div>Going:
+                {props.event.state.chosenEvent.users.map(u => u.username).join(", ")}
+            </div>
             <button>Join Event</button>
         </section>
     )
