@@ -43,17 +43,17 @@ export const EventDetail = (props) => {
         setUser(user)
     }, [users])
 
-    // This section will probaby have the joinEvent function. It takes (event) as a parameter
-
-    // const customerId = parseInt(localStorage.getItem("game_player"))
-
-    // console.log(props)
-    // joinEvent({
-    //     attendeeId,
-    //     eventId
-    // })
-    //     .then(() => props.history.push("/events"))
 }
+// This section will probaby have the joinEvent function. It takes (event) as a parameter
+
+// const customerId = parseInt(localStorage.getItem("game_player"))
+
+// console.log(props)
+// joinEvent({
+//     attendeeId,
+//     eventId
+// })
+//     .then(() => props.history.push("/events"))
 
 
 return (
