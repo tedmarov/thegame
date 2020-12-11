@@ -3,6 +3,7 @@ import { GameContext } from "../games/GameProvider.js"
 import { TypeContext } from "../games/TypeProvider.js"
 import { UserContext } from "../users/UserProvider.js"
 import { EventContext } from "./EventProvider.js"
+//import { AttendeeContext } from "./users/UserEventsProvider.js"
 import "./Event.css"
 
 export const EventDetail = (props) => {
@@ -10,17 +11,20 @@ export const EventDetail = (props) => {
     const { types, getTypes } = useContext(TypeContext)
     const { users, getUsers } = useContext(UserContext)
     const { events, getEvents } = useContext(EventContext)
+    //const { attendees, getAttendees } = useContext(AttendeeContext ) = useContext(EventContext)
 
     const [game, setGame] = useState({})
     const [event, setEvent] = useState({})
     const [type, setType] = useState({})
     const [user, setUser] = useState({})
+    //const [attendee, setAttendee] = useState({})
 
     useEffect(() => {
         getEvents()
             .then(getGames)
             .then(getTypes)
             .then(getUsers)
+        //.then(getAttendees)
     }, [])
 
     useEffect(() => {
@@ -42,7 +46,9 @@ export const EventDetail = (props) => {
         const user = users.find(u => u.id === event.eventHostId) || {}
         setUser(user)
     }, [users])
-
+    //useEffect(() => {
+    // code to match event to attendees
+    //
 
     // This section will probaby have the joinEvent function. It takes (event) as a parameter
 
