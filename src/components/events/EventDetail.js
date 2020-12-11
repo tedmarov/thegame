@@ -60,14 +60,13 @@ export const EventDetail = (props) => {
 
     // const joinEvent = (event) => {
 
-    // const attendee = parseInt(localStorage.getItem("game_player"))
+    // const userId = parseInt(localStorage.getItem("game_player"))
 
     // console.log(props)
     // joinEvent({
-    //     attendeeId,
-    //     eventId
+    //     userId,
+    //     eventId === event.id
     // })
-    //     .then(() => props.history.push("/events"))
 
 
     return (
