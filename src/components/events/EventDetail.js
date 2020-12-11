@@ -66,6 +66,8 @@ export const EventDetail = (props) => {
             <div>Hosted By: {user.username}</div>
             <h3>Details: {event.details}</h3>
             <div>Going: </div>
+            {//{userEvent.attendeeId}*/
+            }
             <button>Join Event</button>
         </section>
     )
