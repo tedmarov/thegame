@@ -76,11 +76,8 @@ export const EventDetail = (props) => {
             <div>Game: {game.title} Category: {type.category}</div>
             <div>Hosted By: {user.username}</div>
             <h3>Details: {event.details}</h3>
-            <div>
-                <h3>Going:</h3>
-                {
-                    filteredUserEvents.map(fUE => users.find(attendee => fUE.userId === attendee.id).username).join(", ")
-                }
+            <div>Going: {
+                filteredUserEvents.map(fUE => users.find(attendee => fUE.userId === attendee.id).username).join(", ")}
             </div>
             <button>Join Event</button>
         </section >
