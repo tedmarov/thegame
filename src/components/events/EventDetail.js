@@ -43,28 +43,30 @@ export const EventDetail = (props) => {
         setUser(user)
     }, [users])
 
-}
-// This section will probaby have the joinEvent function. It takes (event) as a parameter
 
-// const customerId = parseInt(localStorage.getItem("game_player"))
+    // This section will probaby have the joinEvent function. It takes (event) as a parameter
 
-// console.log(props)
-// joinEvent({
-//     attendeeId,
-//     eventId
-// })
-//     .then(() => props.history.push("/events"))
+    // const joinEvent = (event) => {
+
+    // const attendee = parseInt(localStorage.getItem("game_player"))
+
+    // console.log(props)
+    // joinEvent({
+    //     attendeeId,
+    //     eventId
+    // })
+    //     .then(() => props.history.push("/events"))
 
 
-return (
-    <section className="eventDetail">
-        <h3>Event Detail: </h3>
-        <h2>{event.eventName} at {event.eventLoc} on {event.eventDateAndTime}</h2>
-        <div>Game: {game.title} Category: {type.category}</div>
-        <div>Hosted By: {user.username}</div>
-        <h3>Details: {event.details}</h3>
-        <div>Going: </div>
-        <button>Join Event</button>
-    </section>
-)
+    return (
+        <section className="eventDetail">
+            <h3>Event Detail: </h3>
+            <h2>{event.eventName} at {event.eventLoc} on {event.eventDateAndTime}</h2>
+            <div>Game: {game.title} Category: {type.category}</div>
+            <div>Hosted By: {user.username}</div>
+            <h3>Details: {event.details}</h3>
+            <div>Going: </div>
+            <button>Join Event</button>
+        </section>
+    )
 }

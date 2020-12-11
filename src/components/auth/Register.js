@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react"
+import React, { useContext, useRef, useEffect } from "react"
 import { AgeRangeContext } from "./AgeRangeProvider.js"
 import "./Login.css"
 
