@@ -6,7 +6,8 @@ import { EventContext } from "./EventProvider.js"
 import { UserEventContext } from "../users/UserEventsProvider.js"
 import "./Event.css"
 
-//Attendee > pull in data from 3 tables > start from events, use userEvent.EventId from userEvent to match userEvent.EventId to events.id
+// Attendee > pull in data from 3 tables > start from events
+// Use userEvent.EventId from userEvent to match userEvent.EventId to events.id
 // To get to the users table > match users.id to userEvent.userid
 
 export const EventDetail = (props) => {
@@ -20,7 +21,7 @@ export const EventDetail = (props) => {
     const [event, setEvent] = useState({})
     const [type, setType] = useState({})
     const [user, setUser] = useState({})
-    const [userEvent, setUserEvent] = useState({})
+    const [filteredUserEvents, setFilteredUserEvents] = useState([])
 
     useEffect(() => {
         getEvents()
@@ -51,9 +52,8 @@ export const EventDetail = (props) => {
     }, [users])
 
     useEffect(() => {
-        const userEvent = userEvents.find(uE => uE.eventId === event.id && uE.userId === users.id) || {}
-        setUserEvent(userEvent)
-        console.log(userEvent)
+        const filteredUserEvents = userEvents.filter(uE => uE.eventId === event.id) || {}
+        setFilteredUserEvents(filteredUserEvents)
     }, [userEvents])
 
     // This section will probaby have the joinEvent function. It takes (event) as a parameter
@@ -77,10 +77,13 @@ export const EventDetail = (props) => {
             <div>Game: {game.title} Category: {type.category}</div>
             <div>Hosted By: {user.username}</div>
             <h3>Details: {event.details}</h3>
-            <div>Going:
-                {props.event.state.chosenEvent.users.map(u => u.username).join(", ")}
+            <div>
+                <h3>Going:</h3>
+                {
+                    filteredUserEvents.map(fUE => users.find(attendee => fUE.userId === attendee.id).username).join(", ")
+                }
             </div>
             <button>Join Event</button>
-        </section>
+        </section >
     )
 }
