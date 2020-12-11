@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from "react"
-import { Link } from "react-router-dom"
 import { EventContext } from "../events/EventProvider.js"
 import { Event } from "../events/Event.js"
 import "./NavBar.css"
