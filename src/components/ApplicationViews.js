@@ -4,6 +4,7 @@ import { EventProvider } from "./events/EventProvider.js"
 import { TypeProvider } from "./games/TypeProvider.js"
 import { GameProvider } from "./games/GameProvider.js"
 import { UserProvider } from "./users/UserProvider.js"
+import { UserEventsProvider } from "./users/UserEventsProvider.js"
 import { EventList } from "./events/EventList.js"
 import { Dashboard } from "./nav/Dashboard.js"
 import { EventForm } from "./events/EventForm.js"
@@ -33,22 +34,23 @@ export const ApplicationViews = (props) => {
             </EventProvider>
 
             <EventProvider>
-                <UserProvider>
-                    <GameProvider>
-                        <TypeProvider>
-                            {/* Render the list when http://localhost:3000/events */}
-                            <Route exact path="/events" render={
-                                props => <EventList {...props} />
-                            } />
+                <UserEventsProvider>
+                    <UserProvider>
+                        <GameProvider>
+                            <TypeProvider>
+                                {/* Render the list when http://localhost:3000/events */}
+                                <Route exact path="/events" render={
+                                    props => <EventList {...props} />
+                                } />
 
+                                <Route exact path="/events/:eventId(\d+)" render={
+                                    props => <EventDetail {...props} />
+                                } />
 
-                            <Route exact path="/events/:eventId(\d+)" render={
-                                props => <EventDetail {...props} />
-                            } />
-
-                        </TypeProvider>
-                    </GameProvider>
-                </UserProvider>
+                            </TypeProvider>
+                        </GameProvider>
+                    </UserProvider>
+                </UserEventsProvider>
             </EventProvider>
         </>
     )
@@ -59,6 +61,6 @@ import {AnimalList} from "./animal/AnimalList"
  <AnimalProvider>
                     {/* Render the animal list when http://localhost:3000/animals }}
     <Route path="/events">
-        <AnimalList />
+    <AnimalList />
     </Route>
-</AnimalProvider> */
+    </AnimalProvider> */

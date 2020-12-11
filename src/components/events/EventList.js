@@ -31,7 +31,10 @@ export const EventList = (props) => {
             {
                 events.map(event => {
                     return (<div className="eventCard">
-                        < Link key={event.id} to={`/events/${event.id}`}>
+                        < Link key={event.id}
+                            to={{
+                                pathname: `/events/${event.id}`
+                            }} >
                             <h3>{event.eventName}</h3>
                         </Link>
                     </div>
