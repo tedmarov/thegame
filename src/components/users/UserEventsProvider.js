@@ -18,6 +18,17 @@ export const UserEventsProvider = (props) => {
             .then(setUserEvents)
     }
 
+    const joinUserEvent = event => {
+        return fetch("http://localhost:8088/userEvents", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(event)
+        })
+            .then(getUserEvents)
+    }
+
     /*
         You return a context provider which has the
         `userEvents` state, the `addUser` function,
@@ -26,7 +37,7 @@ export const UserEventsProvider = (props) => {
     */
     return (
         <UserEventContext.Provider value={{
-            userEvents, getUserEvents
+            userEvents, getUserEvents, joinUserEvent
         }}>
             {props.children}
         </UserEventContext.Provider>

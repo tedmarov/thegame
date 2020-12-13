@@ -20,11 +20,9 @@ export const Dashboard = (props) => {
     return (
         <>
             <main className="dashboard">
-                Welcome, username.
+                <div>Welcome, username.</div>
                 <div className="eventsWindow">
-                    {
-                        events.map(eve => <Event key={eve.id} event={eve} />)
-                    }
+                    {events.map(eve => <Event key={eve.id} event={eve} />)}
                 </div>
                 <button onClick={() => props.history.push("/events/create")}>
                     Create Event

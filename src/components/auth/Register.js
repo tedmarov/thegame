@@ -124,7 +124,7 @@ export const Register = (props) => {
                 <fieldset>
                     <div className="form-group">
                         <input type="checkbox" ref={consent} required />
-                        <label htmlFor="status"> By checking the box, I confirm that I am 18+ or am a parent/guardian signing up for someone underage. </label>
+                        <label htmlFor="status"> By checking the box, I confirm that I am 18+ or am a parent/guardian. </label>
                     </div>
                 </fieldset>
                 <fieldset>
