@@ -1,7 +1,22 @@
-.events {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+.event,
+.events,
+.eventDetail {
+  justify-content: space-evenly;
+  border: 1px outset #0080ff;
+  text-align: center;
+  margin: 1em;
+  padding: 1em;
+  flex-basis: 20%;
+  align-content: center;
+}
+
+.dashboard {
+  justify-content: space-evenly;
+  text-align: center;
+  margin: 1em;
+  padding: 1em;
+  flex-basis: 20%;
+  align-content: center;
 }
 
 .form-control {
@@ -30,13 +45,5 @@
   background-blend-mode: overlay;
   background-repeat: no-repeat;
   align-content: center;
-}
-
-.event,
-.eventDetail {
-  border: 1px outset #0080ff;
-  text-align: center;
-  margin: 1em;
-  padding: 1em;
-  flex-basis: 20%;
+  margin: 20%;
 }

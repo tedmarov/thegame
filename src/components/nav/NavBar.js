@@ -10,18 +10,17 @@ export const NavBar = (props) => {
         props.history.push("/login")
     }
 
-
     return (
-        <ul className="navbar">
+        <div className="navbar">
             <li className="navbar__item active">
-                <Link className="navbar__link" to="/dashboard">Dashboard</Link>
+                <Link style={{ textDecoration: 'none' }} className="navbar__link" to="/dashboard">Dashboard</Link>
             </li>
             <li className="navbar__item">
-                <Link className="navbar__link" to="/events">Events</Link>
+                <Link style={{ textDecoration: 'none' }} className="navbar__link" to="/events">Events</Link>
             </li>
             <li className="navbar__item" >
-                <Link className="navbar__link" onClick={(e) => { if (window.confirm('Are you sure you wish to log out?')) { handleLogout(e) } }}>Logout</Link>
+                <Link style={{ textDecoration: 'none' }} className="navbar__link" to="/logout" onClick={(e) => { if (window.confirm('Are you sure you wish to log out?')) { handleLogout(e) } }}>Logout</Link>
             </li>
-        </ul>
+        </div>
     )
 }

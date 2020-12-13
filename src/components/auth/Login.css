@@ -46,7 +46,6 @@ fieldset {
 
 .container--login,
 .container--Register {
-  text-align: center;
 }
 
 .form--login {
@@ -56,6 +55,7 @@ fieldset {
   background-color: hsla(0, 0%, 100%, 0.4);
   background-blend-mode: overlay;
   background-repeat: no-repeat;
+  margin: 20%;
 }
 
 .button--close {

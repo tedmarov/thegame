@@ -15,7 +15,7 @@ export const EventDetail = (props) => {
     const { types, getTypes } = useContext(TypeContext)
     const { users, getUsers } = useContext(UserContext)
     const { events, getEvents } = useContext(EventContext)
-    const { userEvents, getUserEvents } = useContext(UserEventContext)
+    const { userEvents, getUserEvents, joinUserEvent } = useContext(UserEventContext)
 
     const [game, setGame] = useState({})
     const [event, setEvent] = useState({})
@@ -58,15 +58,15 @@ export const EventDetail = (props) => {
 
     // This section will probaby have the joinEvent function. It takes (event) as a parameter
 
-    // const joinEvent = (event) => {
-
-    // const userId = parseInt(localStorage.getItem("game_player"))
-
-    // console.log(props)
-    // joinEvent({
-    //     userId,
-    //     eventId === event.id
-    // })
+    const addNewEvent = (e) => {
+        const userId = parseInt(localStorage.getItem("game_player"))
+        const eventId = event.id
+        console.log(props)
+        joinUserEvent({
+            userId,
+            eventId
+        })
+    }
 
 
     return (
@@ -79,7 +79,7 @@ export const EventDetail = (props) => {
             <div>Going: {
                 filteredUserEvents.map(fUE => users.find(attendee => fUE.userId === attendee.id).username).join(", ")}
             </div>
-            <button>Join Event</button>
+            <button className="joinEvent" onClick={(e) => { addNewEvent(e) }}>Join Event</button>
         </section >
     )
 }
