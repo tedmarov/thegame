@@ -29,6 +29,24 @@ export const EventProvider = (props) => {
             .then(getEvents)
     }
 
+    const updateEvent = eventId => {
+        return fetch(`http://localhost:8088/events/${eventId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(eventId)
+        })
+            .then(getEvents)
+    }
+
+    const deleteEvent = eventId => {
+        return fetch(`http://localhost:8088/events/${eventId}`, {
+            method: "DELETE",
+        })
+            .then(getEvents)
+    }
+
     /*
         You return a context provider which has the
         `Events` state, the `addEvent` function,

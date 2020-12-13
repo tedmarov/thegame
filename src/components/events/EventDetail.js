@@ -80,6 +80,7 @@ export const EventDetail = (props) => {
                 filteredUserEvents.map(fUE => users.find(attendee => fUE.userId === attendee.id).username).join(", ")}
             </div>
             <button className="joinEvent" onClick={(e) => { addNewEvent(e) }}>Join Event</button>
+            <button className="editEvent">Edit Event</button>
         </section >
     )
 }
