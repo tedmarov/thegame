@@ -19,12 +19,12 @@ export const ApplicationViews = (props) => {
                     <GameProvider>
                         <TypeProvider>
                             {/*Goes to Dashboard*/}
-                            <Route exact path="/dashboard" render={
+                            <Route path="/dashboard" render={
                                 props => <Dashboard {...props} />
                             } />
 
 
-                            <Route exact path="/events/create" render={
+                            <Route path="/events/create" render={
                                 props => <EventForm {...props} />
                             } />
 
@@ -43,10 +43,10 @@ export const ApplicationViews = (props) => {
                                     props => <EventList {...props} />
                                 } />
 
-                                <Route exact path="/events/:eventId(\d+)" render={
+                                <Route path="/events/:eventId(\d+)" render={
                                     props => <EventDetail {...props} />
                                 } />
-                                <Route exact path="/events/edit/:eventId(\d+)" render={
+                                <Route path="/events/edit/:eventId(\d+)" render={
                                     props => <EventForm {...props} />
                                 } />
 

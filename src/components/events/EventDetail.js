@@ -72,6 +72,7 @@ export const EventDetail = (props) => {
     return (
         <section className="eventDetail">
             <h3>Event Detail: </h3>
+            <h3>Is it cancelled? {event.isActive}</h3>
             <h2>{event.eventName} at {event.eventLoc} on {event.eventDateAndTime}</h2>
             <div>Game: {game.title} Category: {type.category}</div>
             <div>Hosted By: {user.username}</div>
@@ -80,7 +81,7 @@ export const EventDetail = (props) => {
                 filteredUserEvents.map(fUE => users.find(attendee => fUE.userId === attendee.id).username).join(", ")}
             </div>
             <button className="joinEvent" onClick={(e) => { joinNewEvent(e) }}>Join Event</button>
-            <button className="editEvent">Edit Event</button>
+            <button className="editEvent" onClick={() => props.history.push(`/events/edit/${event.id}`)}>Edit Event</button>
         </section >
     )
 }

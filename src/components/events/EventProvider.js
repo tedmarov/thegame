@@ -55,7 +55,7 @@ export const EventProvider = (props) => {
     */
     return (
         <EventContext.Provider value={{
-            events, addEvent, getEvents
+            events, addEvent, getEvents, updateEvent, deleteEvent
         }}>
             {props.children}
         </EventContext.Provider>

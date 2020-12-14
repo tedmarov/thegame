@@ -1,27 +1,27 @@
-import React, { useContext, useRef, useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { EventContext } from "./EventProvider.js"
 import { GameContext } from "../games/GameProvider.js"
 import { TypeContext } from "../games/TypeProvider.js"
 import "./Event.css"
 
 export const EventForm = (props) => {
-    const { events, addEvent, updateEvent } = useContext(EventContext)
+    const { events, addEvent, updateEvent, getEvents, deleteEvent } = useContext(EventContext)
     const { games, getGames } = useContext(GameContext)
     const { types, getTypes } = useContext(TypeContext)
 
     // Component state
-    const [event, setEvent] = useState({})
+    const [event, setEvent] = useState({ isActive: true })
 
     // Something of a URL parameter
     const editMode = props.match.params.hasOwnProperty("eventId")
 
-    const handleControlledInputChange = (event) => {
+    const handleControlledInputChange = (e) => {
         /*
             When changing a state object or array, always create a new one
             and change state instead of modifying current one
         */
         const newEvent = Object.assign({}, event)
-        newEvent[event.target.name] = event.target.value
+        newEvent[e.target.name] = e.target.value
         setEvent(newEvent)
     }
 
@@ -41,36 +41,32 @@ export const EventForm = (props) => {
         }
     }
 
+    const handleCheckedInputChange = (e) => {
+        const cancelledEvent = Object.assign({}, event)
+        cancelledEvent[e.target.name] = Boolean(e.target.checked)
+        setEvent(cancelledEvent)
+    }
     /*
-    Create references that can be attached to the input
-    fields in the form. This will allow you to get the
-    value of the input fields later when the user clicks
-    the button.
-    
-    Doesn't have `document.querySelector()` in React.
-    */
-
-    const type = useRef(null)
-    const game = useRef(null)
-    const name = useRef(null)
-    const when = useRef(null)
-    const location = useRef(null)
-    const description = useRef(null)
-    const isCancelled = useRef(null)
-
-    /*
-        Get Products state and location state on initialization.
+        Get events, types, games state on initialization.
     */
     useEffect(() => {
-        getTypes().then(getGames)
+        getEvents()
+        getTypes()
+        getGames()
     }, [])
+
+    /* Once provider state is updated, determine the event, if edited */
+
+    useEffect(() => {
+        getEventInEditMode()
+    }, [events])
 
     const constructNewEvent = () => {
 
 
         /*
             The `location` and `products` variables below are
-            the references attached to the input fields. You
+            the  attached to the input fields. You
             can't just ask for the `.value` property directly,
             but rather `.current.value` now in React.
         */
@@ -91,9 +87,9 @@ export const EventForm = (props) => {
         } else {
             if (editMode) {
                 updateEvent({
-                    isCancelled: Boolean(isCancelled.current.checked),
-                    typeId: event.typeId,
-                    gameId: event.gameId,
+                    isActive: event.isActive,
+                    typeId: typeId,
+                    gameId: gameId,
                     eventName: event.eventName,
                     eventHostId: parseInt(localStorage.getItem("game_player")),
                     eventLoc: event.eventLoc,
@@ -104,8 +100,9 @@ export const EventForm = (props) => {
                     .then(() => props.history.push("/events"))
             } else {
                 addEvent({
-                    typeId: event.typeId,
-                    gameId: event.gameId,
+                    isActive: event.isActive,
+                    typeId: typeId,
+                    gameId: gameId,
                     eventName: event.eventName,
                     eventHostId: parseInt(localStorage.getItem("game_player")),
                     eventLoc: event.eventLoc,
@@ -119,15 +116,22 @@ export const EventForm = (props) => {
 
     return (
         <form className="eventForm">
-            <h2 className="eventForm__title">New Event</h2>
+            <h2 className="eventForm__title">{editMode ? "Update Event" : "New Event"}</h2>
             <fieldset>
                 <div className="form-group">
-                    {editMode ? <input htmlFor="status" type="checkbox" ref={isCancelled} onChange={handleControlledInputChange}>Do you need to cancel?</input> : {}}
-                    <label htmlFor="type"> Select Game Type </label>
-                    <select defaultValue="" name="type" ref={type} id="GameType" className="form-control" >
+                    {editMode && <div>Status:<input name="isActive"
+                        type="checkbox"
+                        checked={event.isActive}
+                        onChange={handleCheckedInputChange} /> </div>}
+                    <label htmlFor="typeId"> Select Game Type </label>
+                    <select name="typeId" className="form-control"
+                        prototype="int"
+                        required
+                        value={event.typeId}
+                        onChange={handleControlledInputChange}>
                         <option value="0">Select type</option>
                         {types.map(t => (
-                            <option key={t.id} value={t.id} onChange={handleControlledInputChange}>
+                            <option key={t.id} value={t.id} >
                                 {t.category}
                             </option>
                         ))}
@@ -136,11 +140,16 @@ export const EventForm = (props) => {
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="game"> Select Game </label>
-                    <select defaultValue="" name="game" ref={game} id="GameName" className="form-control" >
+                    <label htmlFor="gameId"> Select Game </label>
+                    <select name="gameId"
+                        className="form-control"
+                        prototype="int"
+                        required
+                        value={event.gameId}
+                        onChange={handleControlledInputChange}>
                         <option value="0">Select game</option>
                         {games.map(g => (
-                            <option key={g.id} value={g.id} onChange={handleControlledInputChange}>
+                            <option key={g.id} value={g.id} >
                                 {g.title}
                             </option>
                         ))}
@@ -150,39 +159,44 @@ export const EventForm = (props) => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="eventName">Event name: </label>
-                    <input type="text" id="eventName" ref={name}
+                    <input type="text" name="eventName"
                         required autoFocus
                         className="form-control"
                         placeholder="Event name"
+                        value={event.eventName}
                         onChange={handleControlledInputChange} />
                 </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="eventLoc">Event location: </label>
-                    <input type="text" id="eventLoc" ref={location}
+                    <input type="text" name="eventLoc"
                         required autoFocus
                         className="form-control"
                         placeholder="Location name"
+                        value={event.eventLoc}
                         onChange={handleControlledInputChange} />
                 </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="eventDateAndTime">Event Date and Time: </label>
-                    <input type="text" id="eventDateAndTime" ref={when}
+                    <input type="datetime-local" name="eventDateAndTime"
                         required autoFocus
                         className="form-control"
                         placeholder="Event date and time"
+                        value={event.eventDateAndTime}
                         onChange={handleControlledInputChange} />
                 </div>
             </fieldset>
             <fieldset>
-                <label htmlFor="detail"> Short Description </label>
-                <textarea ref={description} type="text" rows="3" cols="20"
-                    name="detail"
+                <label htmlFor="details"> Short Description </label>
+                <textarea type="text" rows="3" cols="20"
+                    required autoFocus
+                    name="details"
                     className="form-control"
                     placeholder="Enter description"
+                    value={event.details}
                     required onChange={handleControlledInputChange} />
             </fieldset>
             <button type="submit"
@@ -193,6 +207,13 @@ export const EventForm = (props) => {
                 className="btn btn-primary">
                 {editMode ? "Update Event" : "Create Event"}
             </button>
+            <button className="btn btn-delete"
+                onClick={() => {
+                    deleteEvent(event.id)
+                        .then(() => {
+                            props.history.push("/events")
+                        })
+                }}>Delete Event</button>
         </form>
     )
 }
