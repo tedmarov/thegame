@@ -58,7 +58,7 @@ export const EventDetail = (props) => {
 
     // This section will probaby have the joinEvent function. It takes (event) as a parameter
 
-    const addNewEvent = (e) => {
+    const joinNewEvent = (e) => {
         const userId = parseInt(localStorage.getItem("game_player"))
         const eventId = event.id
         console.log(props)
@@ -79,7 +79,7 @@ export const EventDetail = (props) => {
             <div>Going: {
                 filteredUserEvents.map(fUE => users.find(attendee => fUE.userId === attendee.id).username).join(", ")}
             </div>
-            <button className="joinEvent" onClick={(e) => { addNewEvent(e) }}>Join Event</button>
+            <button className="joinEvent" onClick={(e) => { joinNewEvent(e) }}>Join Event</button>
             <button className="editEvent">Edit Event</button>
         </section >
     )

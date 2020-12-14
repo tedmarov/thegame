@@ -46,6 +46,9 @@ export const ApplicationViews = (props) => {
                                 <Route exact path="/events/:eventId(\d+)" render={
                                     props => <EventDetail {...props} />
                                 } />
+                                <Route exact path="/events/edit/:eventId(\d+)" render={
+                                    props => <EventForm {...props} />
+                                } />
 
                             </TypeProvider>
                         </GameProvider>

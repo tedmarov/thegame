@@ -122,8 +122,7 @@ export const EventForm = (props) => {
             <h2 className="eventForm__title">New Event</h2>
             <fieldset>
                 <div className="form-group">
-                    <input type="checkbox" ref={isCancelled} onChange={handleControlledInputChange}></input>
-                    <label htmlFor="status">Do you need to cancel?</label>
+                    {editMode ? <input htmlFor="status" type="checkbox" ref={isCancelled} onChange={handleControlledInputChange}>Do you need to cancel?</input> : {}}
                     <label htmlFor="type"> Select Game Type </label>
                     <select defaultValue="" name="type" ref={type} id="GameType" className="form-control" >
                         <option value="0">Select type</option>

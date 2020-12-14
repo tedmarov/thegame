@@ -14,13 +14,12 @@ ReactDOM.render(
     <div>
       <footer className="disclaimer">
         <address>
-          <div className="textContainer">Anytime you play, think of The Game</div>
+          <div>Anytime you play, think of The Game</div>
           <div>Copyright 2020. Plz no sue.</div>
           <div>Visit us at our campus! 301 Plus Park Blvd #300</div>
         </address>
       </footer>
     </div>
-
   </React.StrictMode>,
   document.getElementById('root')
 );
