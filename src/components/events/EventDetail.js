@@ -72,9 +72,10 @@ export const EventDetail = (props) => {
     return (
         <section className="eventDetail">
             <h3>Event Detail: </h3>
-            <h3>Is it cancelled? {event.isActive}</h3>
+            <h3>Is it still on? {event.isActive ? "It's still on!" : "It's cancelled!"}</h3>
             <h2>{event.eventName} at {event.eventLoc} on {event.eventDateAndTime}</h2>
-            <div>Game: {game.title} Category: {type.category}</div>
+            <div>Game: {game.title}</div>
+            <div>Category: {type.category}</div>
             <div>Hosted By: {user.username}</div>
             <h3>Details: {event.details}</h3>
             <div>Going: {

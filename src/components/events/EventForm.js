@@ -119,7 +119,7 @@ export const EventForm = (props) => {
             <h2 className="eventForm__title">{editMode ? "Update Event" : "New Event"}</h2>
             <fieldset>
                 <div className="form-group">
-                    {editMode && <div>Status:<input name="isActive"
+                    {editMode && <div>Is the event still on?:<input name="isActive"
                         type="checkbox"
                         checked={event.isActive}
                         onChange={handleCheckedInputChange} /> </div>}
@@ -181,7 +181,7 @@ export const EventForm = (props) => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="eventDateAndTime">Event Date and Time: </label>
-                    <input type="datetime-local" name="eventDateAndTime"
+                    <input type="text" name="eventDateAndTime"
                         required autoFocus
                         className="form-control"
                         placeholder="Event date and time"
