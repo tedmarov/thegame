@@ -9,28 +9,34 @@ import { EventList } from "./events/EventList.js"
 import { Dashboard } from "./nav/Dashboard.js"
 import { EventForm } from "./events/EventForm.js"
 import { EventDetail } from "./events/EventDetail.js"
+import { GameForm } from "./games/GameForm.js"
 
 export const ApplicationViews = (props) => {
     return (
         <>
 
             <EventProvider>
-                <UserProvider>
-                    <GameProvider>
-                        <TypeProvider>
-                            {/*Goes to Dashboard*/}
-                            <Route path="/dashboard" render={
-                                props => <Dashboard {...props} />
-                            } />
+                <UserEventsProvider>
+                    <UserProvider>
+                        <GameProvider>
+                            <TypeProvider>
+                                {/*Goes to Dashboard*/}
+                                <Route path="/" render={
+                                    props => <Dashboard {...props} />
+                                } />
 
+                                <Route path="/events/create" render={
+                                    props => <EventForm {...props} />
+                                } />
 
-                            <Route path="/events/create" render={
-                                props => <EventForm {...props} />
-                            } />
+                                <Route path="/games/create" render={
+                                    props => <GameForm {...props} />
+                                } />
 
-                        </TypeProvider>
-                    </GameProvider>
-                </UserProvider>
+                            </TypeProvider>
+                        </GameProvider>
+                    </UserProvider>
+                </UserEventsProvider>
             </EventProvider>
 
             <EventProvider>
