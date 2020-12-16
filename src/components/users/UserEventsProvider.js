@@ -11,6 +11,7 @@ export const UserEventContext = React.createContext()
  */
 export const UserEventsProvider = (props) => {
     const [userEvents, setUserEvents] = useState([])
+    const [userEventsExpanded, setUserEventsExpanded] = useState([])
 
     const getUserEvents = () => {
         return fetch("http://localhost:8088/userEvents")
@@ -29,6 +30,12 @@ export const UserEventsProvider = (props) => {
             .then(getUserEvents)
     }
 
+    const getUserEventsExpanded = () => {
+        return fetch(`http://localhost:8088/userEvents?_expand=user&_expand=event`)
+            .then(res => res.json())
+            .then(setUserEventsExpanded)
+    }
+
     /*
         You return a context provider which has the
         `userEvents` state, the `addUser` function,
@@ -37,7 +44,7 @@ export const UserEventsProvider = (props) => {
     */
     return (
         <UserEventContext.Provider value={{
-            userEvents, getUserEvents, joinUserEvent
+            userEvents, getUserEvents, joinUserEvent, userEventsExpanded, getUserEventsExpanded
         }}>
             {props.children}
         </UserEventContext.Provider>

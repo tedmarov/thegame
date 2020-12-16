@@ -54,7 +54,7 @@ export const Register = (props) => {
                             .then(createdUser => {
                                 if (createdUser.hasOwnProperty("id")) {
                                     localStorage.setItem("game_player", createdUser.id)
-                                    props.history.push("/dashboard")
+                                    props.history.push("/")
                                 }
                             })
                     }
@@ -122,10 +122,8 @@ export const Register = (props) => {
                     <textarea ref={shortBio} type="text" rows="3" cols="20" name="detail" className="form-control" placeholder="Enter detail here" required />
                 </fieldset>
                 <fieldset>
-                    <div className="form-group">
-                        <input type="checkbox" ref={consent} required />
-                        <label htmlFor="status"> By checking the box, I confirm that I am 18+ or am a parent/guardian. </label>
-                    </div>
+                    <label htmlFor="status"> By checking the box, I confirm that I am 18+ or am a parent/guardian. </label>
+                    <input type="checkbox" ref={consent} required />
                 </fieldset>
                 <fieldset>
                     <button type="submit"> Register </button>

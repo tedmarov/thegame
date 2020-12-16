@@ -8,11 +8,15 @@ button,
 input,
 select,
 textarea {
+  width: fit-content;
+  height: fit-content;
+  display: flex;
   color: #404040;
   font-family: "Comfortaa", Arial, sans-serif;
   font-size: 14px;
   line-height: 1.5;
-  margin: 10px;
+  margin: 0 auto;
+  display: block;
 }
 
 h1,
@@ -20,7 +24,9 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+ul,
+li {
   font-family: "Patua One", serif;
   letter-spacing: 2px;
 }

@@ -11,16 +11,13 @@ ReactDOM.render(
     <Router>
       <TheGame />
     </Router>
-    <div>
-      <footer className="disclaimer">
-        <address>
-          <div className="textContainer">Anytime you play, think of The Game</div>
-          <div>Copyright 2020. Plz no sue.</div>
-          <div>Visit us at our campus! 301 Plus Park Blvd #300</div>
-        </address>
-      </footer>
-    </div>
-
+    <footer className="disclaimer">
+      <address>
+        <div>Anytime you play, think of The Game</div>
+        <div>Copyright 2020. Plz no sue.</div>
+        <div>Visit us at our campus! 301 Plus Park Blvd #300</div>
+      </address>
+    </footer>
   </React.StrictMode>,
   document.getElementById('root')
 );

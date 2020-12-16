@@ -9,28 +9,34 @@ import { EventList } from "./events/EventList.js"
 import { Dashboard } from "./nav/Dashboard.js"
 import { EventForm } from "./events/EventForm.js"
 import { EventDetail } from "./events/EventDetail.js"
+import { GameForm } from "./games/GameForm.js"
 
 export const ApplicationViews = (props) => {
     return (
         <>
 
             <EventProvider>
-                <UserProvider>
-                    <GameProvider>
-                        <TypeProvider>
-                            {/*Goes to Dashboard*/}
-                            <Route exact path="/dashboard" render={
-                                props => <Dashboard {...props} />
-                            } />
+                <UserEventsProvider>
+                    <UserProvider>
+                        <GameProvider>
+                            <TypeProvider>
+                                {/*Goes to Dashboard*/}
+                                <Route exact path="/" render={
+                                    props => <Dashboard {...props} />
+                                } />
 
+                                <Route path="/events/create" render={
+                                    props => <EventForm {...props} />
+                                } />
 
-                            <Route exact path="/events/create" render={
-                                props => <EventForm {...props} />
-                            } />
+                                <Route path="/games/create" render={
+                                    props => <GameForm {...props} />
+                                } />
 
-                        </TypeProvider>
-                    </GameProvider>
-                </UserProvider>
+                            </TypeProvider>
+                        </GameProvider>
+                    </UserProvider>
+                </UserEventsProvider>
             </EventProvider>
 
             <EventProvider>
@@ -43,8 +49,11 @@ export const ApplicationViews = (props) => {
                                     props => <EventList {...props} />
                                 } />
 
-                                <Route exact path="/events/:eventId(\d+)" render={
+                                <Route path="/events/:eventId(\d+)" render={
                                     props => <EventDetail {...props} />
+                                } />
+                                <Route path="/events/edit/:eventId(\d+)" render={
+                                    props => <EventForm {...props} />
                                 } />
 
                             </TypeProvider>
