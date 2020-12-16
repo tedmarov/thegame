@@ -115,10 +115,12 @@ export const EventForm = (props) => {
     }
 
     return (
-        <form className="eventForm">
-            <h2 className="eventForm__title">{editMode ? "Update Event" : "New Event"}</h2>
-            <fieldset>
-                <div className="form-group">
+        <main className="eventForm">
+            <header>
+                <h2 className="eventForm__title">{editMode ? "Update Event" : "New Event"}</h2>
+            </header>
+            <article>
+                <fieldset>
                     {editMode && <div>Is the event still on?:<input name="isActive"
                         type="checkbox"
                         checked={event.isActive}
@@ -136,10 +138,8 @@ export const EventForm = (props) => {
                             </option>
                         ))}
                     </select>
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form-group">
+                </fieldset>
+                <fieldset>
                     <label htmlFor="gameId"> Select Game </label>
                     <select name="gameId"
                         className="form-control"
@@ -154,10 +154,8 @@ export const EventForm = (props) => {
                             </option>
                         ))}
                     </select>
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form-group">
+                </fieldset>
+                <fieldset>
                     <label htmlFor="eventName">Event name: </label>
                     <input type="text" name="eventName"
                         required autoFocus
@@ -165,10 +163,8 @@ export const EventForm = (props) => {
                         placeholder="Event name"
                         value={event.eventName}
                         onChange={handleControlledInputChange} />
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form-group">
+                </fieldset>
+                <fieldset>
                     <label htmlFor="eventLoc">Event location: </label>
                     <input type="text" name="eventLoc"
                         required autoFocus
@@ -176,10 +172,8 @@ export const EventForm = (props) => {
                         placeholder="Location name"
                         value={event.eventLoc}
                         onChange={handleControlledInputChange} />
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form-group">
+                </fieldset>
+                <fieldset>
                     <label htmlFor="eventDateAndTime">Event Date and Time: </label>
                     <input type="text" name="eventDateAndTime"
                         required autoFocus
@@ -187,18 +181,18 @@ export const EventForm = (props) => {
                         placeholder="Event date and time"
                         value={event.eventDateAndTime}
                         onChange={handleControlledInputChange} />
-                </div>
-            </fieldset>
-            <fieldset>
-                <label htmlFor="details"> Short Description </label>
-                <textarea type="text" rows="3" cols="20"
-                    required autoFocus
-                    name="details"
-                    className="form-control"
-                    placeholder="Enter description"
-                    value={event.details}
-                    required onChange={handleControlledInputChange} />
-            </fieldset>
+                </fieldset>
+                <fieldset>
+                    <label htmlFor="details"> Short Description </label>
+                    <textarea type="text" rows="3" cols="20"
+                        required autoFocus
+                        name="details"
+                        className="form-control"
+                        placeholder="Enter description"
+                        value={event.details}
+                        required onChange={handleControlledInputChange} />
+                </fieldset>
+            </article>
             <button type="submit"
                 onClick={evt => {
                     evt.preventDefault() // Prevent browser from submitting the form
@@ -214,7 +208,7 @@ export const EventForm = (props) => {
                             props.history.push("/events")
                         })
                 }}>Delete Event</button>
-        </form>
+        </main>
     )
 }
 // Console log the checkboxes for values

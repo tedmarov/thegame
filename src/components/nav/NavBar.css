@@ -11,3 +11,13 @@
 .navbar__item {
   list-style-type: none;
 }
+
+.dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  text-align: center;
+  margin: 1em;
+  padding: 1em;
+  flex-basis: 20%;
+}

@@ -34,20 +34,20 @@ export const GameForm = (props) => {
         <form className="gameForm">
             <h2 className="gameForm__title">New game</h2>
             <fieldset>
-                <div className="form-group">
-                    <label htmlFor="gameName">Game title:</label>
-                    <input type="text" name="gameName" ref={title} required autoFocus classname="form-control" placeholder="Game title" />
-                </div>
+
+                <label htmlFor="gameName">Game title:</label>
+                <input type="text" name="gameName" ref={title} required autoFocus classname="form-control" placeholder="Game title" />
+
             </fieldset>
             <fieldset>
-                <div className="form-group">
-                    <label htmlFor="gameDesc">Game description:</label>
-                    <textarea type="text" rows="3" cols="20"
-                        name="gameDesc" ref={desc}
-                        required autoFocus
-                        classname="form-control"
-                        placeholder="Game description" />
-                </div>
+
+                <label htmlFor="gameDesc">Game description:</label>
+                <textarea type="text" rows="3" cols="20"
+                    name="gameDesc" ref={desc}
+                    required autoFocus
+                    classname="form-control"
+                    placeholder="Game description" />
+
             </fieldset>
             <button type="submit"
                 onClick={evt => {
