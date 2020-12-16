@@ -21,7 +21,7 @@ export const ApplicationViews = (props) => {
                         <GameProvider>
                             <TypeProvider>
                                 {/*Goes to Dashboard*/}
-                                <Route path="/" render={
+                                <Route exact path="/" render={
                                     props => <Dashboard {...props} />
                                 } />
 

@@ -11,8 +11,12 @@ export const Dashboard = (props) => {
     const { users, getUsers } = useContext(UserContext)
     const { userEvents, getUserEvents } = useContext(UserEventContext)
 
+    const [event, setEvent] = useState([])
     const [user, setUser] = useState([])
-    const [userEvent, setUserEvent] = useState({})
+    const [userEvent, setUserEvent] = useState([])
+    const [filteredEventUsers, setFilteredEventUsers] = useState([])
+
+    const playerId = parseInt(localStorage.getItem("game_player"))
 
     /*
         What's the effect this is reponding to? Component was
@@ -27,13 +31,18 @@ export const Dashboard = (props) => {
     }, [])
 
     useEffect(() => {
-        const user = users.find(u => u.id === parseInt(localStorage.getItem("game_player"))) || {}
+        const event = events.find(e => e.id === userEvent.eventId)
+        setEvent(event)
+    }, [events])
+
+    useEffect(() => {
+        const user = users.find(u => u.id === playerId) || {}
         setUser(user)
     }, [users])
 
     useEffect(() => {
-        const attendingUser = userEvents.find(uE => uE.userId === parseInt(localStorage.getItem("game_player"))) || {}
-        setUserEvent(attendingUser)
+        const filteredEventUsers = userEvents.filter(uE => uE.userId === playerId) || {}
+        setFilteredEventUsers(filteredEventUsers)
     }, [userEvents])
 
     return (
@@ -45,7 +54,7 @@ export const Dashboard = (props) => {
                 <div className="hostedEvents">
                     <h3>Hosted Events</h3>
                     {events.map(event => {
-                        if (event.eventHostId === user.id || event.id === userEvent.eventId) {
+                        if (event.eventHostId === user.id) {
                             return <div className="eventCard">
                                 < Link key={event.id}
                                     to={{
@@ -60,20 +69,17 @@ export const Dashboard = (props) => {
                 </div>
                 <div>
                     <h3>Joined Events</h3>
-                    {events.map(e => {
-                        if ((e.id === userEvents.eventId || userEvents.userId === users.id) === Boolean(false)) {
-                            return <div className="eventCard">
-                                < Link key={e.id}
-                                    to={{
-                                        pathname: `/events/${e.id}`
-                                    }} >
-                                    <h4>{e.eventName} at {e.eventLoc}, {e.eventDateAndTime}</h4>
-                                </Link>
-                            </div>
-                        }
-
+                    {events.map(event => {
+                        return <div className="eventCard">
+                            < Link key={event.id}
+                                to={{
+                                    pathname: `/events/${event.id}`
+                                }} >
+                                <h4>{filteredEventUsers.map(fEU =>
+                                    events.find(joined => fEU.eventId === joined.id).eventName).join(";")}</h4>
+                            </Link>
+                        </div>
                     })}
-
                 </div>
             </div>
             <button onClick={() => props.history.push("/events/create")}>

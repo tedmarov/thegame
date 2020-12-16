@@ -23,7 +23,7 @@ export const EventDetail = (props) => {
     const [user, setUser] = useState({})
     const [filteredUserEvents, setFilteredUserEvents] = useState([])
 
-    const userId = parseInt(localStorage.getItem("game_player"))
+    const playerId = parseInt(localStorage.getItem("game_player"))
 
     useEffect(() => {
         getEvents()
@@ -61,19 +61,18 @@ export const EventDetail = (props) => {
     // This section will probaby have the joinEvent function. It takes (event) as a parameter
 
     const joinNewEvent = (e) => {
-        const userId = parseInt(localStorage.getItem("game_player"))
         const eventId = event.id
         console.log(props)
         joinUserEvent({
-            userId,
+            playerId,
             eventId
         })
     }
 
     // Render logic on 
 
-    const verifyHost = (userId) => {
-        if (userId === event.eventHostId)
+    const verifyHost = (playerId) => {
+        if (playerId === event.eventHostId)
             return Boolean(true);
     }
 
@@ -90,7 +89,7 @@ export const EventDetail = (props) => {
                 filteredUserEvents.map(fUE => users.find(attendee => fUE.userId === attendee.id).username).join(", ")}
             </div>
             <button className="joinEvent" onClick={(e) => { joinNewEvent(e) }}>Join Event</button>
-            { verifyHost(userId) ? <button className="editEvent" onClick={() => props.history.push(`/events/edit/${event.id}`)}>Edit Event</button> : ""}
+            { verifyHost(playerId) ? <button className="editEvent" onClick={() => props.history.push(`/events/edit/${event.id}`)}>Edit Event</button> : ""}
         </section >
     )
 }
