@@ -10,6 +10,7 @@
 
 .navbar__item {
   list-style-type: none;
+  text-align: center;
 }
 
 .dashboard {
