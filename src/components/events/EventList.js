@@ -30,8 +30,8 @@ export const EventList = (props) => {
         <div className="event">
             {
                 events.map(event => {
-                    return (<div className="eventCard">
-                        < Link key={event.id}
+                    return (<div className="eventCard" key={event.id}>
+                        < Link
                             to={{
                                 pathname: `/events/${event.id}`
                             }} >

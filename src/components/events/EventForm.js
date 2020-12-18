@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react"
 import { EventContext } from "./EventProvider.js"
 import { GameContext } from "../games/GameProvider.js"
 import { TypeContext } from "../games/TypeProvider.js"
-import "./Event.css"
+
 
 export const EventForm = (props) => {
     const { events, addEvent, updateEvent, getEvents, deleteEvent } = useContext(EventContext)
@@ -10,7 +10,11 @@ export const EventForm = (props) => {
     const { types, getTypes } = useContext(TypeContext)
 
     // Component state
-    const [event, setEvent] = useState({ isActive: true })
+    const [event, setEvent] = useState(
+        {
+            isActive: true,
+            typeId: "0"
+        })
 
     // Something of a URL parameter
     const editMode = props.match.params.hasOwnProperty("eventId")
@@ -115,99 +119,105 @@ export const EventForm = (props) => {
     }
 
     return (
-        <main className="eventForm">
-            <header>
-                <h2 className="eventForm__title">{editMode ? "Update Event" : "New Event"}</h2>
-            </header>
-            <article>
+        <main className="container--main">
+            <section>
+                <form className="form--main">
+                    <fieldset>
+                        <h2>{editMode ? "Update Event" : "New Event"}</h2>
+                    </fieldset>
+                    <fieldset>
+                        {editMode && <div className="form-Control">Is the event still on?:
+                        <input
+                                name="isActive"
+                                type="checkbox"
+                                checked={event.isActive}
+                                onChange={handleCheckedInputChange} /> </div>}
+                        <label htmlFor="typeId"> Select Game Type </label>
+                        <select name="typeId" className="form-control"
+                            prototype="int"
+                            required
+                            value={event.typeId}
+                            onChange={handleControlledInputChange}>
+                            <option value="0">Select type</option>
+                            {types.map(t => (
+                                <option key={t.id} value={t.id} >
+                                    {t.category}
+                                </option>
+                            ))}
+                        </select>
+                    </fieldset>
+                    <fieldset>
+                        <label htmlFor="gameId"> Select Game </label>
+                        <select name="gameId"
+                            className="form-control"
+                            prototype="int"
+                            required
+                            value={event.gameId}
+                            onChange={handleControlledInputChange}>
+                            <option value="0">Select game</option>
+                            {games.map(g => (
+                                <option key={g.id} value={g.id} >
+                                    {g.title}
+                                </option>
+                            ))}
+                        </select>
+                    </fieldset>
+                    <fieldset>
+                        <label htmlFor="eventName">Event name: </label>
+                        <input type="text" name="eventName"
+                            required autoFocus
+                            className="form-control"
+                            placeholder="Event name"
+                            value={event.eventName}
+                            onChange={handleControlledInputChange} />
+                    </fieldset>
+                    <fieldset>
+                        <label htmlFor="eventLoc">Event location: </label>
+                        <input type="text" name="eventLoc"
+                            required autoFocus
+                            className="form-control"
+                            placeholder="Location name"
+                            value={event.eventLoc}
+                            onChange={handleControlledInputChange} />
+                    </fieldset>
+                    <fieldset>
+                        <label htmlFor="eventDateAndTime">Event Date and Time: </label>
+                        <input type="text" name="eventDateAndTime"
+                            required autoFocus
+                            className="form-control"
+                            placeholder="Event date and time"
+                            value={event.eventDateAndTime}
+                            onChange={handleControlledInputChange} />
+                    </fieldset>
+                    <fieldset>
+                        <label htmlFor="details"> Short Description </label>
+                        <textarea type="text" rows="3" cols="20"
+                            name="details"
+                            className="form-control"
+                            placeholder="Enter description"
+                            value={event.details}
+                            required onChange={handleControlledInputChange} />
+                    </fieldset>
+                </form>
                 <fieldset>
-                    {editMode && <div>Is the event still on?:<input name="isActive"
-                        type="checkbox"
-                        checked={event.isActive}
-                        onChange={handleCheckedInputChange} /> </div>}
-                    <label htmlFor="typeId"> Select Game Type </label>
-                    <select name="typeId" className="form-control"
-                        prototype="int"
-                        required
-                        value={event.typeId}
-                        onChange={handleControlledInputChange}>
-                        <option value="0">Select type</option>
-                        {types.map(t => (
-                            <option key={t.id} value={t.id} >
-                                {t.category}
-                            </option>
-                        ))}
-                    </select>
+                    <button type="submit"
+                        onClick={evt => {
+                            evt.preventDefault() // Prevent browser from submitting the form
+                            constructNewEvent()
+                        }}>
+                        {editMode ? "Update Event" : "Create Event"}
+                    </button>
                 </fieldset>
                 <fieldset>
-                    <label htmlFor="gameId"> Select Game </label>
-                    <select name="gameId"
-                        className="form-control"
-                        prototype="int"
-                        required
-                        value={event.gameId}
-                        onChange={handleControlledInputChange}>
-                        <option value="0">Select game</option>
-                        {games.map(g => (
-                            <option key={g.id} value={g.id} >
-                                {g.title}
-                            </option>
-                        ))}
-                    </select>
+                    <button
+                        onClick={() => {
+                            deleteEvent(event.id)
+                                .then(() => {
+                                    props.history.push("/events")
+                                })
+                        }}>Delete Event</button>
                 </fieldset>
-                <fieldset>
-                    <label htmlFor="eventName">Event name: </label>
-                    <input type="text" name="eventName"
-                        required autoFocus
-                        className="form-control"
-                        placeholder="Event name"
-                        value={event.eventName}
-                        onChange={handleControlledInputChange} />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="eventLoc">Event location: </label>
-                    <input type="text" name="eventLoc"
-                        required autoFocus
-                        className="form-control"
-                        placeholder="Location name"
-                        value={event.eventLoc}
-                        onChange={handleControlledInputChange} />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="eventDateAndTime">Event Date and Time: </label>
-                    <input type="text" name="eventDateAndTime"
-                        required autoFocus
-                        className="form-control"
-                        placeholder="Event date and time"
-                        value={event.eventDateAndTime}
-                        onChange={handleControlledInputChange} />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="details"> Short Description </label>
-                    <textarea type="text" rows="3" cols="20"
-                        required autoFocus
-                        name="details"
-                        className="form-control"
-                        placeholder="Enter description"
-                        value={event.details}
-                        required onChange={handleControlledInputChange} />
-                </fieldset>
-            </article>
-            <button type="submit"
-                onClick={evt => {
-                    evt.preventDefault() // Prevent browser from submitting the form
-                    constructNewEvent()
-                }}
-                className="btn btn-primary">
-                {editMode ? "Update Event" : "Create Event"}
-            </button>
-            <button className="btn btn-delete"
-                onClick={() => {
-                    deleteEvent(event.id)
-                        .then(() => {
-                            props.history.push("/events")
-                        })
-                }}>Delete Event</button>
+            </section>
         </main>
     )
 }

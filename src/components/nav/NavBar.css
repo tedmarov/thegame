@@ -14,8 +14,7 @@
 }
 
 .dashboard {
-  display: flex;
-  flex-wrap: wrap;
+  display: block;
   justify-content: space-evenly;
   text-align: center;
   margin: 1em;

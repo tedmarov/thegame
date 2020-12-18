@@ -33,7 +33,7 @@ export const Login = props => {
     }
 
     return (
-        <main className="container--login">
+        <main className="container--main">
             <dialog className="dialog dialog--auth" ref={existDialog}>
                 <div>User does not exist</div>
                 <button className="button--close" onClick={e => existDialog.current.close()}>Close</button>
@@ -43,8 +43,7 @@ export const Login = props => {
                 <button className="button--close" onClick={e => passwordDialog.current.close()}>Close</button>
             </dialog>
             <section>
-                <form className="form--login" onSubmit={handleLogin}>
-                    <h1></h1>
+                <form className="form--main" onSubmit={handleLogin}>
                     <h2>Please sign in</h2>
                     <fieldset>
                         <label htmlFor="inputUsername"> Username </label>
@@ -62,14 +61,10 @@ export const Login = props => {
                             placeholder="Password"
                             required />
                     </fieldset>
-                    <fieldset>
-                        <button type="submit">
-                            Sign in
-                        </button>
-                    </fieldset>
                 </form>
-            </section>
-            <section className="link--register">
+                <fieldset>
+                    <button type="submit">Sign in</button>
+                </fieldset>
                 <Link to="/register">Not a member yet? Register here</Link>
             </section>
         </main>

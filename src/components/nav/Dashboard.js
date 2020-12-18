@@ -51,8 +51,8 @@ export const Dashboard = (props) => {
                         <h3>Hosted Events</h3>
                         {events.map(event => {
                             if (event.eventHostId === playerId) {
-                                return <div className="eventCard">
-                                    < Link key={event.id}
+                                return <div className="eventCard" key={event.id}>
+                                    < Link
                                         to={{
                                             pathname: `/events/${event.id}`
                                         }} >
@@ -67,8 +67,8 @@ export const Dashboard = (props) => {
                         <h3>Joined Events</h3>
                         {userEventsExpanded.map(event => {
                             if (event.userId === playerId)
-                                return <div className="eventCard">
-                                    < Link key={event.id}
+                                return <div className="eventCard" key={event.id}>
+                                    < Link
                                         to={{
                                             pathname: `/events/${event.event.id}`
                                         }} >
