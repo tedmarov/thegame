@@ -31,33 +31,36 @@ export const GameForm = (props) => {
     }
 
     return (
-        <form className="gameForm">
-            <h2 className="gameForm__title">New game</h2>
+        <main className="container--main">
+
+            <form className="form--main">
+                <h2 className>New game</h2>
+                <fieldset>
+                    <label htmlFor="gameName">Game title:</label>
+                    <input type="text" name="gameName" ref={title} required
+                        autoFocus
+                        className="form-control" placeholder="Game title" />
+                </fieldset>
+                <fieldset>
+                    <label htmlFor="gameDesc">Game description:</label>
+                    <textarea type="text" rows="3" cols="20"
+                        name="gameDesc" ref={desc}
+                        required
+                        className="form-control"
+                        placeholder="Game description" />
+                </fieldset>
+            </form>
             <fieldset>
-
-                <label htmlFor="gameName">Game title:</label>
-                <input type="text" name="gameName" ref={title} required autoFocus classname="form-control" placeholder="Game title" />
-
-            </fieldset>
-            <fieldset>
-
-                <label htmlFor="gameDesc">Game description:</label>
-                <textarea type="text" rows="3" cols="20"
-                    name="gameDesc" ref={desc}
-                    required autoFocus
-                    classname="form-control"
-                    placeholder="Game description" />
-
-            </fieldset>
-            <button type="submit"
-                onClick={evt => {
-                    evt.preventDefault()
-                    constructNewGame()
-                }}
-                className="btn btn-primary">
-                Add Game
+                <button type="submit"
+                    onClick={evt => {
+                        evt.preventDefault()
+                        constructNewGame()
+                    }}
+                    className="btn btn-primary">
+                    Add Game
             </button>
-        </form>
+            </fieldset>
+        </main>
     )
 }
 

@@ -4,18 +4,18 @@
 /*Typography
 --------------------------------------------------------------*/
 body,
-button,
-input,
-select,
 textarea {
-  width: fit-content;
   height: fit-content;
-  display: flex;
   color: #404040;
   font-family: "Comfortaa", Arial, sans-serif;
   font-size: 14px;
   line-height: 1.5;
-  display: block;
+}
+
+input,
+select,
+textarea {
+  width: 85%;
 }
 
 h1,
@@ -44,4 +44,13 @@ li {
 
 address {
   margin: 0 0 1.5em;
+}
+
+button {
+  display: inline-block;
+  height: fit-content;
+  color: #404040;
+  font-family: "Comfortaa", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
 }
