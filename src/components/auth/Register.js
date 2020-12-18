@@ -21,7 +21,7 @@ export const Register = (props) => {
         getAgeRanges()
     }, [])
 
-    function existingUserCheck() {
+    const existingUserCheck = () => {
         return fetch(`http://localhost:8088/users?username=${username.current.value}`)
             .then(_ => _.json())
             .then(user => !!user.length)
@@ -123,17 +123,20 @@ export const Register = (props) => {
                         <label htmlFor="detail"> Short Bio </label>
                         <textarea ref={shortBio} type="text" rows="3" cols="20" name="detail" className="form-control" placeholder="Enter detail here" required />
                     </fieldset>
+                    <fieldset>
+                        <label htmlFor="status"> By checking the box, I confirm that I am 18+ or am a parent/guardian. </label>
+                        <input type="checkbox"
+                            ref={consent}
+                            className="form-Control"
+                            required />
+                    </fieldset>
+                    <form>
+
+                        <fieldset onSubmit={handleRegister}>
+                            <button type="submit"> Register </button>
+                        </fieldset>
+                    </form>
                 </form>
-                <fieldset>
-                    <label htmlFor="status"> By checking the box, I confirm that I am 18+ or am a parent/guardian. </label>
-                    <input type="checkbox"
-                        ref={consent}
-                        className="form-Control"
-                        required />
-                </fieldset>
-                <fieldset>
-                    <button type="submit"> Register </button>
-                </fieldset>
             </section>
         </main>
     )
