@@ -3,13 +3,6 @@ h1 {
   font-size: 2.5rem;
 }
 
-fieldset {
-  min-width: 0;
-  padding: 1rem 0;
-  margin: 0;
-  border: 0;
-}
-
 .form--main {
   display: inline-block;
   margin: 0 auto;

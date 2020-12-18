@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState, useRef } from "react"
+import React, { useContext, useRef } from "react"
 import { GameContext } from "./GameProvider.js"
 
 export const GameForm = (props) => {
-    const { games, getGames, addGame } = useContext(GameContext)
+    const { addGame } = useContext(GameContext)
 
     const title = useRef(null)
     const desc = useRef(null)

@@ -46,6 +46,14 @@ address {
   margin: 0 0 1.5em;
 }
 
+fieldset {
+  min-width: 0;
+  padding: 1rem 0;
+  margin: 1px;
+  border: 0;
+  display: block;
+}
+
 button {
   display: inline-block;
   height: fit-content;
