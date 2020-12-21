@@ -65,7 +65,7 @@ export const Login = props => {
                 <form onSubmit={handleLogin}>
                     <button type="submit">Sign in</button>
                 </form>
-                <Link to="/register">Not a member yet? Register here</Link>
+                Not a member yet? <Link to="/register">Register here</Link>
             </section>
         </main>
     )
