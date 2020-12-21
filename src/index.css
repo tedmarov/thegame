@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #eaebed;
 }
 
 code {
@@ -14,4 +15,12 @@ code {
 
 .disclaimer {
   text-align: center;
+}
+
+.imageDiv {
+  display: block;
+  text-align: center;
+}
+
+.logo {
 }

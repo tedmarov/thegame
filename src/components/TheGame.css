@@ -40,6 +40,7 @@ strong,
 ul,
 li {
   font-weight: bold;
+  background-color: #eaebed;
 }
 
 address {
@@ -47,6 +48,7 @@ address {
 }
 
 fieldset {
+  background-color: #eaebed;
   min-width: 0;
   padding: 1rem 0;
   margin: 1px;

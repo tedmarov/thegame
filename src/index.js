@@ -2,12 +2,14 @@ import React from "react"
 import ReactDOM from "react-dom"
 import { BrowserRouter as Router } from "react-router-dom"
 import { TheGame } from "./components/TheGame.js"
-import logoPath from "./components/auth/logo.jpg"
+import logo from "./components/auth/logo.png"
 import "./index.css"
 
 ReactDOM.render(
   <React.StrictMode>
-    <img src={logoPath} alt="Hi Brenda" />
+    <div className="imageDiv">
+      <img className="logo" src={logo} alt="Hi Brenda" />
+    </div>
     <Router>
       <TheGame />
     </Router>
