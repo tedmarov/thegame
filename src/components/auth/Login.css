@@ -20,6 +20,7 @@ h1 {
 }
 
 .form-control {
+  background-color: #eaebed;
   width: 85%;
   display: block;
   height: calc(1.5em + 0.75rem + 2px);
@@ -42,6 +43,7 @@ h1 {
 }
 
 .form--main {
+  background-color: #eaebed;
   z-index: 1;
   min-width: auto;
   background-color: hsla(0, 0%, 100%, 0.4);
