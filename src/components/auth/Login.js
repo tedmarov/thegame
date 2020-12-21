@@ -62,10 +62,10 @@ export const Login = props => {
                             required />
                     </fieldset>
                 </form>
-                <fieldset>
+                <form onSubmit={handleLogin}>
                     <button type="submit">Sign in</button>
-                </fieldset>
-                <Link to="/register">Not a member yet? Register here</Link>
+                </form>
+                Not a member yet? <Link to="/register">Register here</Link>
             </section>
         </main>
     )
