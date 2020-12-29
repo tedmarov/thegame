@@ -25,6 +25,15 @@ export const EventDetail = (props) => {
 
     const userId = parseInt(localStorage.getItem("game_player"))
 
+    // Existing user check; will involve 
+    // const existingAttendeeCheck = () => {
+    //     return fetch(`http://localhost:8088/events?username=${username.current.value}`)
+    //         .then(_ => _.json())
+    //         .then(user => !!user.length)
+    // }
+
+    http://localhost:8088/userEvents?_expand=user&_expand=event
+
     useEffect(() => {
         getEvents()
             .then(getGames)
@@ -71,25 +80,27 @@ export const EventDetail = (props) => {
 
     // Render logic on 
 
-    const verifyHost = (playerId) => {
-        if (playerId === event.eventHostId)
+    const verifyHost = (userId) => {
+        if (userId === event.eventHostId)
             return Boolean(true);
     }
 
     return (
-        <section className="eventDetail">
-            <h3>Event Detail: </h3>
-            <h3>Is it still on? {event.isActive ? "It's still on!" : "It's cancelled!"}</h3>
-            <h2>{event.eventName} at {event.eventLoc} on {event.eventDateAndTime}</h2>
-            <div>Game: {game.title}</div>
-            <div>Category: {type.category}</div>
-            <div>Hosted By: {user.username}</div>
-            <h3>Details: {event.details}</h3>
-            <div>Going: {
-                filteredUserEvents.map(fUE => users.find(attendee => fUE.userId === attendee.id).username).join(", ")}
-            </div>
-            <button className="joinEvent" onClick={(e) => { joinNewEvent(e) }}>Join Event</button>
-            { verifyHost(userId) ? <button className="editEvent" onClick={() => props.history.push(`/events/edit/${event.id}`)}>Edit Event</button> : ""}
-        </section >
+        <article className="eventsWindow">
+            <section className="eventDetail">
+                <h3>Event Detail: </h3>
+                <h3>Is it still on? {event.isActive ? "It's still on!" : "It's cancelled!"}</h3>
+                <h2>{event.eventName} at {event.eventLoc} on {event.eventDateAndTime}</h2>
+                <div>Game: {game.title}</div>
+                <div>Category: {type.category}</div>
+                <div>Hosted By: {user.username}</div>
+                <h3>Details: {event.details}</h3>
+                <div>Going: {
+                    filteredUserEvents.map(fUE => users.find(attendee => fUE.userId === attendee.id).username).join(", ")}
+                </div>
+                <button className="joinEvent" onClick={(e) => { joinNewEvent(e) }}>Join Event</button>
+                {verifyHost(userId) ? <button className="editEvent" onClick={() => props.history.push(`/events/edit/${event.id}`)}>Edit Event</button> : ""}
+            </section >
+        </article>
     )
 }

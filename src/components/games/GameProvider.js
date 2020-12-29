@@ -29,6 +29,25 @@ export const GameProvider = (props) => {
             .then(getGames)
     }
 
+    const updateGame = game => {
+        return fetch(`http://localhost:8088/Games/${game.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(game)
+        })
+            .then(getGames)
+    }
+
+    const deleteGame = gameId => {
+        return fetch(`http://localhost:8088/Games/${gameId}`, {
+            method: "DELETE",
+        })
+            .then(getGames)
+    }
+
+
     /*
         You return a context provider which has the
         `Games` state, the `addGame` function,
@@ -37,7 +56,7 @@ export const GameProvider = (props) => {
     */
     return (
         <GameContext.Provider value={{
-            games, addGame, getGames
+            games, addGame, getGames, updateGame, deleteGame
         }}>
             {props.children}
         </GameContext.Provider>

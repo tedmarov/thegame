@@ -64,7 +64,7 @@ export const NavBar = (props) => {
                 aria-controls={open ? 'menu-list-grow' : undefined}
                 aria-haspopup="true"
                 onClick={handleToggle}>
-                <img src={menu} />
+                <img src={menu} alt="And a haircut" />
             </Button>
             <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
                 {({ TransitionProps, placement }) => (
@@ -75,18 +75,35 @@ export const NavBar = (props) => {
                         <Paper>
                             <ClickAwayListener onClickAway={handleClose}>
                                 <MenuList
+                                    onClick={handleClose}
                                     className="menu__list"
                                     autoFocusItem={open}
                                     id="menu-list-grow"
                                     onKeyDown={handleListKeyDown}>
                                     <MenuItem><Link
                                         className="menu__link"
-                                        to="/events/create"
+                                        to="/events"
+                                        style={{ textDecoration: 'none', textAlign: 'center' }}>Events</Link></MenuItem>
+                                    <MenuItem><Link
+                                        className="menu__link"
+                                        to="/event/create"
                                         style={{ textDecoration: 'none', textAlign: 'center' }}>Create Event</Link></MenuItem>
                                     <MenuItem><Link
                                         className="menu__link"
-                                        to="/games/create"
+                                        to="/games"
+                                        style={{ textDecoration: 'none', textAlign: 'center' }}>Games</Link></MenuItem>
+                                    <MenuItem><Link
+                                        className="menu__link"
+                                        to="/game/create"
                                         style={{ textDecoration: 'none', textAlign: 'center' }}>Add Game</Link></MenuItem>
+                                    <MenuItem><Link
+                                        className="menu__link"
+                                        to="/teams"
+                                        style={{ textDecoration: 'none', textAlign: 'center' }}>Teams</Link></MenuItem>
+                                    <MenuItem><Link
+                                        className="menu__link"
+                                        to="/teams/create"
+                                        style={{ textDecoration: 'none', textAlign: 'center' }}>Start a Team</Link></MenuItem>
                                 </MenuList>
                             </ClickAwayListener>
                         </Paper>
