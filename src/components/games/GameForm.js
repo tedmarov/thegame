@@ -63,10 +63,7 @@ export const GameForm = (props) => {
             but rather `.current.value` now in React.
         */
 
-        const title = game.title
-        const description = game.description
-
-        if (title === "" || description === "") {
+        if (game.title === "" || game.description === "") {
             window.alert("Please don't leave any empty fields")
         } else {
             if (editMode) {
@@ -94,8 +91,8 @@ export const GameForm = (props) => {
                         <h2>{editMode ? "Update Game" : "New Game"}</h2>
                     </fieldset>
                     <fieldset>
-                        <label htmlFor="gameName">Game name: </label>
-                        <input type="text" name="gameName"
+                        <label htmlFor="title">Game name: </label>
+                        <input type="text" name="title"
                             required autoFocus
                             className="form-control"
                             placeholder="Game name"
@@ -105,7 +102,7 @@ export const GameForm = (props) => {
                     <fieldset>
                         <label htmlFor="description"> Short Description </label>
                         <textarea type="text" rows="3" cols="20"
-                            name="details"
+                            name="description"
                             className="form-control"
                             placeholder="Tell us a little about your Game"
                             value={game.description}
@@ -121,7 +118,7 @@ export const GameForm = (props) => {
                         {editMode ? "Update Game" : "Create Game"}
                     </button>
                 </fieldset>
-                <fieldset>
+                {editMode && <fieldset>
                     <button
                         onClick={() => {
                             deleteGame(game.id)
@@ -129,7 +126,7 @@ export const GameForm = (props) => {
                                     props.history.push("/games")
                                 })
                         }}>Delete Game</button>
-                </fieldset>
+                </fieldset>}
             </section>
         </main>
     )

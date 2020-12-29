@@ -35,15 +35,9 @@ export const TeamForm = (props) => {
     const getTeamInEditMode = () => {
         if (editMode) {
             const teamId = parseInt(props.match.params.teamId)
-            const selectedTeam = teams.find(e => e.id === teamId) || {}
+            const selectedTeam = teams.find(t => t.id === teamId) || {}
             setTeam(selectedTeam)
         }
-    }
-
-    const handleCheckedInputChange = (e) => {
-        const cancelledTeam = Object.assign({}, team)
-        cancelledTeam[e.target.name] = Boolean(e.target.checked)
-        setTeam(cancelledTeam)
     }
     /*
         Get Teams, types, games state on initialization.
@@ -112,7 +106,7 @@ export const TeamForm = (props) => {
                     <fieldset>
                         <label htmlFor="description"> Short Description </label>
                         <textarea type="text" rows="3" cols="20"
-                            name="details"
+                            name="description"
                             className="form-control"
                             placeholder="Tell us a little about your team"
                             value={team.description}
@@ -128,7 +122,7 @@ export const TeamForm = (props) => {
                         {editMode ? "Update Team" : "Create Team"}
                     </button>
                 </fieldset>
-                <fieldset>
+                {editMode && <fieldset>
                     <button
                         onClick={() => {
                             deleteTeam(team.id)
@@ -136,7 +130,7 @@ export const TeamForm = (props) => {
                                     props.history.push("/teams")
                                 })
                         }}>Delete Team</button>
-                </fieldset>
+                </fieldset>}
             </section>
         </main>
     )

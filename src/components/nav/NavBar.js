@@ -86,7 +86,7 @@ export const NavBar = (props) => {
                                         style={{ textDecoration: 'none', textAlign: 'center' }}>Events</Link></MenuItem>
                                     <MenuItem><Link
                                         className="menu__link"
-                                        to="/event/create"
+                                        to="/events/create"
                                         style={{ textDecoration: 'none', textAlign: 'center' }}>Create Event</Link></MenuItem>
                                     <MenuItem><Link
                                         className="menu__link"
