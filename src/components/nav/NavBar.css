@@ -1,6 +1,7 @@
 .navbar {
   display: flex;
-  flex-wrap: nowrap;
+  flex-direction: row;
+  align-items: center;
   justify-content: space-evenly;
   color: #404040;
   font-family: "Comfortaa", Arial, sans-serif;
@@ -9,7 +10,10 @@
 }
 
 .navbar__item {
-  list-style-type: none;
+  flex-basis: 20%;
+}
+
+.menu__link {
   text-align: center;
 }
 
