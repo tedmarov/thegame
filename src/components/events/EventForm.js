@@ -208,7 +208,7 @@ export const EventForm = (props) => {
                         {editMode ? "Update Event" : "Create Event"}
                     </button>
                 </fieldset>
-                <fieldset>
+                {editMode && <fieldset>
                     <button
                         onClick={() => {
                             deleteEvent(event.id)
@@ -216,7 +216,7 @@ export const EventForm = (props) => {
                                     props.history.push("/events")
                                 })
                         }}>Delete Event</button>
-                </fieldset>
+                </fieldset>}
             </section>
         </main>
     )

@@ -1,8 +1,10 @@
 import React, { useContext, useRef, useEffect } from "react"
 import { AgeRangeContext } from "./AgeRangeProvider.js"
+import { UserContext } from "../users/UserProvider.js"
 import "./Login.css"
 
 export const Register = (props) => {
+    const { users, getUsers } = useContext(UserContext)
     const { ageRanges, getAgeRanges } = useContext(AgeRangeContext)
 
     const picUrl = useRef("")
@@ -45,7 +47,7 @@ export const Register = (props) => {
                                 password: password.current.value,
                                 email: email.current.value,
                                 locationPreference: locationPreference.current.value,
-                                ageRange: parseInt(ageRangeId.current.value),
+                                ageRangeId: parseInt(ageRangeId.current.value),
                                 shortBio: shortBio.current.value,
                                 consent: Boolean(consent.current.checked)
                             })
@@ -114,7 +116,7 @@ export const Register = (props) => {
                             <option value="0"> Age Range </option>
                             {ageRanges.map(aR => (
                                 <option key={aR.id} value={aR.id}>
-                                    {aR.ageRange}
+                                    {aR.type}
                                 </option>
                             ))}
                         </select>
@@ -130,12 +132,9 @@ export const Register = (props) => {
                             className="form-Control"
                             required />
                     </fieldset>
-                    <form>
-
-                        <fieldset onSubmit={handleRegister}>
-                            <button type="submit"> Register </button>
-                        </fieldset>
-                    </form>
+                </form>
+                <form onSubmit={handleRegister}>
+                    <button type="submit">Register </button>
                 </form>
             </section>
         </main>

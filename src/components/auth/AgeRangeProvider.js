@@ -18,17 +18,6 @@ export const AgeRangeProvider = (props) => {
             .then(setAgeRanges)
     }
 
-    const addAgeRange = ageRange => {
-        return fetch("http://localhost:8088/ageRange", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(ageRange)
-        })
-            .then(getAgeRanges)
-    }
-
     /*
         You return a context provider which has the
         `AgeRanges` state, the `addAgeRange` function,
@@ -37,7 +26,7 @@ export const AgeRangeProvider = (props) => {
     */
     return (
         <AgeRangeContext.Provider value={{
-            ageRanges, addAgeRange, getAgeRanges
+            ageRanges, getAgeRanges
         }}>
             {props.children}
         </AgeRangeContext.Provider>

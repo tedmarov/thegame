@@ -27,7 +27,8 @@ export const EventList = (props) => {
     // }, [events])
 
     return (
-        <div className="event">
+        <article className="eventsWindow">
+
             {
                 events.map(event => {
                     return (<div className="eventCard" key={event.id}>
@@ -40,5 +41,6 @@ export const EventList = (props) => {
                     </div>
                     )
                 })}
-        </div>)
+        </article>
+    )
 }

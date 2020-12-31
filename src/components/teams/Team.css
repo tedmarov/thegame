@@ -1,4 +1,4 @@
-.gamesWindow {
+.teamsWindow {
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -9,8 +9,8 @@
   flex-basis: 20%;
 }
 
-.gameCard,
-.gameDetail {
+.teamCard,
+.teamDetail {
   display: block;
   border: 1px outset #0080ff;
   text-align: center;

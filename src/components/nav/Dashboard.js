@@ -1,19 +1,25 @@
 import React, { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { EventContext } from "../events/EventProvider.js"
 import { UserContext } from "../users/UserProvider.js"
+import { EventContext } from "../events/EventProvider.js"
+import { TeamContext } from "../teams/TeamProvider.js"
 import { UserEventContext } from "../users/UserEventsProvider.js"
+import { UserTeamContext } from "../users/UserTeamsProvider.js"
 import "./NavBar.css"
 
 
 export const Dashboard = (props) => {
-    const { events, getEvents } = useContext(EventContext)
     const { users, getUsers } = useContext(UserContext)
+    const { events, getEvents } = useContext(EventContext)
+    const { teams, getTeams } = useContext(TeamContext)
     const { userEventsExpanded, getUserEvents, getUserEventsExpanded } = useContext(UserEventContext)
+    const { userTeamsExpanded, getUserTeams, getUserTeamsExpanded } = useContext(UserTeamContext)
 
-    const [event, setEvent] = useState([])
     const [user, setUser] = useState([])
-    const [userEvent, setUserEvent] = useState([])
+    const [event, setEvent] = useState([])
+    const [team, setTeam] = useState([])
+    const [userEvent] = useState([])
+    const [userTeam] = useState([])
 
     const playerId = parseInt(localStorage.getItem("game_player"))
 
@@ -28,6 +34,9 @@ export const Dashboard = (props) => {
             .then(getUserEvents)
             .then(getUserEventsExpanded)
             .then(getEvents)
+            .then(getUserTeams)
+            .then(getUserTeamsExpanded)
+            .then(getTeams)
     }, [])
 
     useEffect(() => {
@@ -40,51 +49,78 @@ export const Dashboard = (props) => {
         setUser(user)
     }, [users])
 
+    useEffect(() => {
+        const team = teams.find(t => t.id === userTeam.teamId)
+        setTeam(team)
+    }, [teams])
+
     return (
         <main className="dashboard">
-            <section>
-                <header>
-                    <h2>Welcome, {user.username}.</h2>
-                </header>
-                <article className="eventsWindow">
-                    <div className="hostedEvents">
-                        <h3>Hosted Events</h3>
-                        {events.map(event => {
-                            if (event.eventHostId === playerId) {
-                                return <div className="eventCard" key={event.id}>
-                                    < Link
-                                        to={{
-                                            pathname: `/events/${event.id}`
-                                        }} >
-                                        <h4>{event.eventName} at {event.eventLoc}, {event.eventDateAndTime}</h4>
-                                    </Link>
-                                </div>
-                            }
+            <article className="eventsWindow">
+                <h2>Welcome, {user.username}.</h2>
+                <button className="viewProfile" onClick={() => props.history.push(`/users/${user.id}`)}>My Profile</button>
+                <div className="hostedEvents">
+                    <h3 className="dash">Events Hosting</h3>
+                    {events.map(event => {
+                        if (event.eventHostId === playerId) {
+                            return <div className="eventCard" key={event.id}>
+                                < Link
+                                    to={{
+                                        pathname: `/events/${event.id}`
+                                    }} >
+                                    <h4>{event.eventName} at {event.eventLoc}, {event.eventDateAndTime}</h4>
+                                </Link>
+                            </div>
+                        }
+                    })}
+                </div>
+                <div>
+                    <h3 className="dash">Joined Events</h3>
+                    {userEventsExpanded.map(event => {
+                        if (event.userId === playerId)
+                            return <div className="eventCard" key={event.id}>
+                                < Link
+                                    to={{
+                                        pathname: `/events/${event.event.id}`
+                                    }} >
+                                    <h4>{event.event.eventName} at {event.event.eventLoc}, {event.event.eventDateAndTime}</h4>
+                                </Link>
+                            </div>
+                    })}
+                </div>
+            </article>
 
-                        })}
-                    </div>
-                    <div>
-                        <h3>Joined Events</h3>
-                        {userEventsExpanded.map(event => {
-                            if (event.userId === playerId)
-                                return <div className="eventCard" key={event.id}>
-                                    < Link
-                                        to={{
-                                            pathname: `/events/${event.event.id}`
-                                        }} >
-                                        <h4>{event.event.eventName} at {event.event.eventLoc}, {event.event.eventDateAndTime}</h4>
-                                    </Link>
-                                </div>
-                        })}
-                    </div>
-                </article>
-                <button onClick={() => props.history.push("/events/create")}>
-                    Create Event
-                </button>
-                <button onClick={() => props.history.push("/games/create")}>
-                    Add Game
-                </button>
-            </section>
+            <article className="teamsWindow">
+                <div className="captainedTeams">
+                    <h3 className="dash">Teams Leading</h3>
+                    {teams.map(team => {
+                        if (team.teamLeaderId === playerId) {
+                            return <div className="teamCard" key={team.id}>
+                                < Link
+                                    to={{
+                                        pathname: `/teams/${team.id}`
+                                    }} >
+                                    <h4>{team.teamName}</h4>
+                                </Link>
+                            </div>
+                        }
+                    })}
+                </div>
+                <div>
+                    <h3 className="dash">Joined Teams</h3>
+                    {userTeamsExpanded.map(team => {
+                        if (team.userId === playerId)
+                            return <div className="teamCard" key={team.id}>
+                                < Link
+                                    to={{
+                                        pathname: `/teams/${team.team.id}`
+                                    }} >
+                                    <h4>{team.team.teamName}</h4>
+                                </Link>
+                            </div>
+                    })}
+                </div>
+            </article>
         </main>
     )
 }

@@ -19,14 +19,18 @@ export const UserEventsProvider = (props) => {
             .then(setUserEvents)
     }
 
-    const joinUserEvent = event => {
+    const joinUserEvent = (userId, eventId) => {
         return fetch("http://localhost:8088/userEvents", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(event)
+            body: JSON.stringify({
+                userId,
+                eventId
+            })
         })
+            .then(_ => _.json())
             .then(getUserEvents)
     }
 
