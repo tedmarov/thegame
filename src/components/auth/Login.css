@@ -4,6 +4,7 @@ h1 {
 }
 
 .form--main {
+  background-color: #eaebed;
   display: inline-block;
   margin: 0 auto;
   text-align: left;

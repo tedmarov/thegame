@@ -5,6 +5,7 @@ import { NavBar } from "./nav/NavBar"
 import { Login } from "./auth/Login"
 import { Register } from "./auth/Register"
 import { AgeRangeProvider } from "./auth/AgeRangeProvider.js"
+import { UserProvider } from "./users/UserProvider.js"
 import "./TheGame.css"
 
 export const TheGame = () => (
@@ -23,8 +24,10 @@ export const TheGame = () => (
         }} />
 
         <Route path="/login" render={props => <Login {...props} />} />
-        <AgeRangeProvider>
-            <Route path="/register" render={props => <Register {...props} />} />
-        </AgeRangeProvider>
+        <UserProvider>
+            <AgeRangeProvider>
+                <Route path="/register" render={props => <Register {...props} />} />
+            </AgeRangeProvider>
+        </UserProvider>
     </>
 )

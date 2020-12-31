@@ -1,6 +1,7 @@
 import React from "react"
 import { Route } from "react-router-dom"
 import { Dashboard } from "./nav/Dashboard.js"
+import { UserDetail } from "./users/UserDetail.js"
 import { EventList } from "./events/EventList.js"
 import { EventDetail } from "./events/EventDetail.js"
 import { EventForm } from "./events/EventForm.js"
@@ -11,6 +12,7 @@ import { TeamList } from "./teams/TeamList.js"
 import { TeamDetail } from "./teams/TeamDetail.js"
 import { TeamForm } from "./teams/TeamForm.js"
 import { EventProvider } from "./events/EventProvider.js"
+import { AgeRangeProvider } from "./auth/AgeRangeProvider.js"
 import { TypeProvider } from "./games/TypeProvider.js"
 import { GameProvider } from "./games/GameProvider.js"
 import { UserProvider } from "./users/UserProvider.js"
@@ -21,20 +23,24 @@ import { UserTeamsProvider } from "./users/UserTeamsProvider.js"
 export const ApplicationViews = (props) => {
     return (
         <>
-
             <UserProvider>
-                <EventProvider>
-                    <UserEventsProvider>
-                        <TeamProvider>
-                            <UserTeamsProvider>
-                                {/*Goes to Dashboard*/}
-                                <Route exact path="/" render={
-                                    props => <Dashboard {...props} />
-                                } />
-                            </UserTeamsProvider>
-                        </TeamProvider>
-                    </UserEventsProvider>
-                </EventProvider>
+                <AgeRangeProvider>
+                    <EventProvider>
+                        <UserEventsProvider>
+                            <TeamProvider>
+                                <UserTeamsProvider>
+                                    {/*Goes to Dashboard*/}
+                                    <Route exact path="/" render={
+                                        props => <Dashboard {...props} />
+                                    } />
+                                    <Route path="/users/:userId(\d+)" render={
+                                        props => <UserDetail {...props} />
+                                    } />
+                                </UserTeamsProvider>
+                            </TeamProvider>
+                        </UserEventsProvider>
+                    </EventProvider>
+                </AgeRangeProvider>
             </UserProvider>
 
             <EventProvider>

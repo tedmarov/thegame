@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react"
+import React, { useContext, useRef, useState, useEffect } from "react"
 import { GameContext } from "../games/GameProvider.js"
 import { TypeContext } from "../games/TypeProvider.js"
 import { UserContext } from "../users/UserProvider.js"
@@ -23,16 +23,9 @@ export const EventDetail = (props) => {
     const [user, setUser] = useState({})
     const [filteredUserEvents, setFilteredUserEvents] = useState([])
 
-    const userId = parseInt(localStorage.getItem("game_player"))
+    const playerId = parseInt(localStorage.getItem("game_player"))
+    const conflictDialog = useRef()
 
-    // Existing user check; will involve 
-    // const existingAttendeeCheck = () => {
-    //     return fetch(`http://localhost:8088/events?username=${username.current.value}`)
-    //         .then(_ => _.json())
-    //         .then(user => !!user.length)
-    // }
-
-    http://localhost:8088/userEvents?_expand=user&_expand=event
 
     useEffect(() => {
         getEvents()
@@ -67,26 +60,51 @@ export const EventDetail = (props) => {
         setFilteredUserEvents(filteredUserEvents)
     }, [userEvents])
 
-    // This section will probaby have the joinEvent function. It takes (event) as a parameter
+    const eventId = event.id
+    const userId = playerId
 
-    const joinNewEvent = (e) => {
-        const eventId = event.id
-        console.log(props)
-        joinUserEvent({
-            userId,
-            eventId
-        })
+    // Existing user check; will involve userEvents
+    const existingAttendeeCheck = () => {
+        console.log(event.id)
+        console.log(user.id)
+        return fetch(`http://localhost:8088/userEvents?eventId=${eventId}&userId=${userId}`)
+            .then(_ => _.json())
+            .then(attendee => !!attendee.length)
+    }
+
+    // http://localhost:8088/userEvents?userId=${playerId}
+
+    // This section will probaby have the joinEvent function. It takes (event) as a parameter    
+    const joinNewEvent = () => {
+        existingAttendeeCheck()
+            .then((attendeeExists) => {
+                console.log(props)
+                if (!attendeeExists) {
+                    joinUserEvent(
+                        userId,
+                        eventId
+                    )
+                }
+                else {
+                    conflictDialog.current.showModal()
+                }
+            }
+            )
     }
 
     // Render logic on 
 
-    const verifyHost = (userId) => {
-        if (userId === event.eventHostId)
+    const verifyHost = (playerId) => {
+        if (playerId === event.eventHostId)
             return Boolean(true);
     }
 
     return (
         <article className="eventsWindow">
+            <dialog className="dialog dialog--attendee" ref={conflictDialog}>
+                <div>You're already attending</div>
+                <button className="button--close" onClick={e => conflictDialog.current.close()}>Close</button>
+            </dialog>
             <section className="eventDetail">
                 <h3>Event Detail: </h3>
                 <h3>Is it still on? {event.isActive ? "It's still on!" : "It's cancelled!"}</h3>
@@ -99,7 +117,7 @@ export const EventDetail = (props) => {
                     filteredUserEvents.map(fUE => users.find(attendee => fUE.userId === attendee.id).username).join(", ")}
                 </div>
                 <button className="joinEvent" onClick={(e) => { joinNewEvent(e) }}>Join Event</button>
-                {verifyHost(userId) ? <button className="editEvent" onClick={() => props.history.push(`/events/edit/${event.id}`)}>Edit Event</button> : ""}
+                {verifyHost(playerId) ? <button className="editEvent" onClick={() => props.history.push(`/events/edit/${event.id}`)}>Edit Event</button> : ""}
             </section >
         </article>
     )

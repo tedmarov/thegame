@@ -8,7 +8,8 @@ import "./index.css"
 ReactDOM.render(
   <React.StrictMode>
     <div className="imageDiv">
-      <img className="logo" src={logo} alt="Hi Brenda" />
+      <img className="imageDiv__logo" src={logo} alt="Hi Brenda" />
+      <h2 className="imageDiv__text">The Game</h2>
     </div>
     <Router>
       <TheGame />

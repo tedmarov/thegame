@@ -1,12 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { Button, ClickAwayListener, Grow, Paper, Popper, MenuItem, MenuList } from "../../../node_modules/@material-ui/core";
-// import ClickAwayListener from "../../../node_modules/@material-ui/core";
-// import Grow from "../../../node_modules/@material-ui/core";
-// import Paper from "../../../node_modules/@material-ui/core";
-// import Popper from "../../../node_modules/@material-ui/core";
-// import MenuItem from "../../../node_modules/@material-ui/core";
-// import MenuList from "../../../node_modules/@material-ui/core";
+import { Button, ClickAwayListener, Popper, MenuItem, MenuList } from "../../../node_modules/@material-ui/core";
 import "./NavBar.css"
 import home from "../nav/home.png"
 import menu from "../nav/menu.png"
@@ -54,10 +48,8 @@ export const NavBar = (props) => {
     }
 
     return (
-        <nav className="navbar" container>
-            <dd className="navbar__item active">
-                <Link style={{ textDecoration: 'none' }} className="navbar__link" to="/"><img src={home} alt="Shave and" /></Link>
-            </dd>
+        <nav className="navbar">
+            <Link className="navbar__link" to="/"><img src={home} alt="Shave and" /></Link>
             <Button
                 className="navbar__item"
                 ref={anchorRef}
@@ -67,52 +59,42 @@ export const NavBar = (props) => {
                 <img src={menu} alt="And a haircut" />
             </Button>
             <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
-                {({ TransitionProps, placement }) => (
-                    <Grow
-                        {...TransitionProps}
-                        style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-                    >
-                        <Paper>
-                            <ClickAwayListener onClickAway={handleClose}>
-                                <MenuList
-                                    onClick={handleClose}
-                                    className="menu__list"
-                                    autoFocusItem={open}
-                                    id="menu-list-grow"
-                                    onKeyDown={handleListKeyDown}>
-                                    <MenuItem><Link
-                                        className="menu__link"
-                                        to="/events"
-                                        style={{ textDecoration: 'none', textAlign: 'center' }}>Events</Link></MenuItem>
-                                    <MenuItem><Link
-                                        className="menu__link"
-                                        to="/events/create"
-                                        style={{ textDecoration: 'none', textAlign: 'center' }}>Create Event</Link></MenuItem>
-                                    <MenuItem><Link
-                                        className="menu__link"
-                                        to="/games"
-                                        style={{ textDecoration: 'none', textAlign: 'center' }}>Games</Link></MenuItem>
-                                    <MenuItem><Link
-                                        className="menu__link"
-                                        to="/game/create"
-                                        style={{ textDecoration: 'none', textAlign: 'center' }}>Add Game</Link></MenuItem>
-                                    <MenuItem><Link
-                                        className="menu__link"
-                                        to="/teams"
-                                        style={{ textDecoration: 'none', textAlign: 'center' }}>Teams</Link></MenuItem>
-                                    <MenuItem><Link
-                                        className="menu__link"
-                                        to="/teams/create"
-                                        style={{ textDecoration: 'none', textAlign: 'center' }}>Start a Team</Link></MenuItem>
-                                </MenuList>
-                            </ClickAwayListener>
-                        </Paper>
-                    </Grow>
-                )}
+                <ClickAwayListener onClickAway={handleClose}>
+                    <MenuList
+                        style={{ border: "1px outset #0080ff" }}
+                        onClick={handleClose}
+                        className="menu__list"
+                        autoFocusItem={open}
+                        id="menu-list-grow"
+                        onKeyDown={handleListKeyDown}>
+                        <MenuItem><Link
+                            className="menu__link"
+                            to="/events"
+                            style={{ alignSelf: 'center' }}>Events</Link></MenuItem>
+                        <MenuItem><Link
+                            className="menu__link"
+                            to="/events/create"
+                            style={{ textAlign: 'center' }}>Create an Event</Link></MenuItem>
+                        <MenuItem><Link
+                            className="menu__link"
+                            to="/games"
+                            style={{ textAlign: "center" }}>Games</Link></MenuItem>
+                        <MenuItem><Link
+                            className="menu__link"
+                            to="/game/create"
+                            style={{ textAlign: 'center' }}>Add a Game</Link></MenuItem>
+                        <MenuItem><Link
+                            className="menu__link"
+                            to="/teams"
+                            style={{ textAlign: 'center' }}>Teams</Link></MenuItem>
+                        <MenuItem><Link
+                            className="menu__link"
+                            to="/teams/create"
+                            style={{ textAlign: 'center' }}>Start a Team</Link></MenuItem>
+                    </MenuList>
+                </ClickAwayListener>
             </Popper>
-            <dd className="navbar__item">
-                <Link style={{ textDecoration: 'none' }} className="navbar__link" to="/" onClick={(e) => { if (window.confirm('Are you sure you wish to log out?')) { handleLogout(e) } }}><img src={logout} alt="Two Bits" /></Link>
-            </dd>
+            <Link style={{ textDecoration: 'none' }} className="navbar__link" to="/" onClick={(e) => { if (window.confirm('Are you sure you wish to log out?')) { handleLogout(e) } }}><img src={logout} alt="Two Bits" /></Link>
         </nav >
     )
 }
