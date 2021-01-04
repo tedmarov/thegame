@@ -1,5 +1,4 @@
 import React, { useContext, useRef, useEffect } from "react"
-import { ImageUploader } from "react-images-upload"
 import { AgeRangeContext } from "./AgeRangeProvider.js"
 import { UserContext } from "../users/UserProvider.js"
 import "./Login.css"
@@ -8,7 +7,7 @@ export const Register = (props) => {
     const { users, getUsers } = useContext(UserContext)
     const { ageRanges, getAgeRanges } = useContext(AgeRangeContext)
 
-    const picUrl = useRef("")
+    const picUrl = useRef()
     const username = useRef()
     const email = useRef()
     const password = useRef()
@@ -40,7 +39,7 @@ export const Register = (props) => {
                         fetch("http://localhost:8088/users", {
                             method: "POST",
                             headers: {
-                                "Content-Type": "multipart/mixed"
+                                "Content-Type": "application/json"
                             },
                             body: JSON.stringify({
                                 picUrl: picUrl.current.value,
@@ -83,10 +82,8 @@ export const Register = (props) => {
             <section>
                 <form className="form--main" onSubmit={handleRegister}>
                     <h2>Registration</h2>
-                    <fieldset>
-                        <label htmlFor="selectPic"> Upload Pic </label>
-                        <input ref={picUrl} type="file" name="picUrl" className="form-control" placeholder="" />
-                    </fieldset>
+                    <label htmlFor="selectPic"> Upload Pic </label>
+                    <input ref={picUrl} type="file" accept="image/png, image/jpg" name="picUrl" className="form-control" placeholder="" />
                     <fieldset>
                         <label htmlFor="inputUsername"> Username </label>
                         <input ref={username} type="Username"
@@ -124,14 +121,14 @@ export const Register = (props) => {
                     </fieldset>
                     <fieldset>
                         <label htmlFor="detail"> Short Bio </label>
-                        <textarea ref={shortBio} type="text" rows="3" cols="20" name="detail" className="form-control" placeholder="Enter detail here" required />
+                        <textarea ref={shortBio} type="text" rows="5" cols="20" name="detail" className="form-control" placeholder="Enter detail here" required />
                     </fieldset>
                     <fieldset>
                         <label htmlFor="status"> By checking the box, I confirm that I am 18+ or am a parent/guardian. </label>
                         <input type="checkbox"
                             ref={consent}
                             className="form-Control"
-                            required />
+                            required></input>
                     </fieldset>
                 </form>
                 <form onSubmit={handleRegister}>
