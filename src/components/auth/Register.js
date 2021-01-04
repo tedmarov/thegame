@@ -1,4 +1,5 @@
 import React, { useContext, useRef, useEffect } from "react"
+import { ImageUploader } from "react-images-upload"
 import { AgeRangeContext } from "./AgeRangeProvider.js"
 import { UserContext } from "../users/UserProvider.js"
 import "./Login.css"
@@ -39,7 +40,7 @@ export const Register = (props) => {
                         fetch("http://localhost:8088/users", {
                             method: "POST",
                             headers: {
-                                "Content-Type": "application/json"
+                                "Content-Type": "multipart/mixed"
                             },
                             body: JSON.stringify({
                                 picUrl: picUrl.current.value,
@@ -84,7 +85,7 @@ export const Register = (props) => {
                     <h2>Registration</h2>
                     <fieldset>
                         <label htmlFor="selectPic"> Upload Pic </label>
-                        <input ref={picUrl} type="text" name="picUrl" className="form-control" placeholder="" />
+                        <input ref={picUrl} type="file" name="picUrl" className="form-control" placeholder="" />
                     </fieldset>
                     <fieldset>
                         <label htmlFor="inputUsername"> Username </label>

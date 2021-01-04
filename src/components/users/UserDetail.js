@@ -40,6 +40,7 @@ export const UserDetail = (props) => {
         <article className="usersWindow">
             <section className="userDetail">
                 <h2>User Detail</h2>
+                <img src={user.picUrl}></img>
                 <h3>Username: {user.username}</h3>
                 <div>E-mail: {user.email}</div>
                 <div>Location Preference: {user.locationPreference}</div>
