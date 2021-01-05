@@ -1,4 +1,5 @@
 import React, { useContext, useRef, useState, useEffect } from "react"
+import { Link } from "react-router-dom"
 import { TeamContext } from "./TeamProvider.js"
 import { UserContext } from "../users/UserProvider.js"
 import { UserTeamContext } from "../users/UserTeamsProvider.js"
@@ -12,11 +13,12 @@ import "./Team.css"
 export const TeamDetail = (props) => {
     const { users, getUsers } = useContext(UserContext)
     const { teams, getTeams } = useContext(TeamContext)
-    const { userTeams, getUserTeams, joinUserTeam } = useContext(UserTeamContext)
+    const { userTeams, getUserTeams, joinUserTeam, userTeamsExpanded, getUserTeamsExpanded } = useContext(UserTeamContext)
 
     const [user, setUser] = useState({})
     const [team, setTeam] = useState({})
     const [filteredUserTeams, setFilteredUserTeams] = useState([])
+    const [filteredUserTeamsExpanded, setFilteredUserTeamsExpanded] = useState([])
 
     const playerId = parseInt(localStorage.getItem("game_player"))
     const conflictDialog = useRef()
@@ -25,6 +27,7 @@ export const TeamDetail = (props) => {
         getTeams()
             .then(getUsers)
             .then(getUserTeams)
+            .then(getUserTeamsExpanded)
     }, [])
 
     useEffect(() => {
@@ -41,6 +44,11 @@ export const TeamDetail = (props) => {
         const filteredUserTeams = userTeams.filter(uT => uT.teamId === team.id) || {}
         setFilteredUserTeams(filteredUserTeams)
     }, [userTeams])
+
+    useEffect(() => {
+        const filteredUserTeamsExpanded = userTeamsExpanded.filter(uTE => uTE.teamId === team.id) || {}
+        setFilteredUserTeamsExpanded(filteredUserTeamsExpanded)
+    }, [userTeamsExpanded])
 
     // This section will probaby have the joinTeam function. It takes (Team) as a parameter
     const teamId = team.id
@@ -62,7 +70,7 @@ export const TeamDetail = (props) => {
                     joinUserTeam(
                         userId,
                         teamId
-                    )
+                    ).then(props.history.push("/"))
                 }
                 else {
                     conflictDialog.current.showModal()
@@ -74,7 +82,12 @@ export const TeamDetail = (props) => {
     // Render logic on 
 
     const verifyLeader = (playerId) => {
-        if (playerId === team.teamLeaderId)
+        if (playerId === parseInt(team.teamLeaderId))
+            return Boolean(true);
+    }
+
+    const verifyTeammate = (playerId) => {
+        if (playerId === parseInt(user.id))
             return Boolean(true);
     }
 
@@ -82,19 +95,36 @@ export const TeamDetail = (props) => {
         <article className="teamsWindow">
             <dialog className="dialog dialog--teammate" ref={conflictDialog}>
                 <div>You're already a teammate</div>
-                <button classsName="button--close" onClick={e => conflictDialog.current.close()}>Close</button>
+                <button className="button--close" onClick={e => conflictDialog.current.close()}>Close</button>
             </dialog>
             <section className="teamDetail">
                 <h3>Team Details: </h3>
                 <h2>WE ARE {team.teamName} THE MIGHTY, MIGHTY {team.teamName}</h2>
                 <div>You know our team's motto, right? {team.description}</div>
                 <h3>And of course, our fearless leader: {user.username}</h3>
-                <div>Members: {
-                    filteredUserTeams.map(fUE => users.find(teammate => fUE.userId === teammate.id).username).join(", ")}
+                <div className="teamLineup">
+                    And our teammates:
+                                {filteredUserTeamsExpanded.map(fUTE => {
+                    if (fUTE.teamId === team.id)
+                        return <div key={fUTE.user.id}>
+                            {console.log(user)}
+                            <Link
+                                to={{
+                                    pathname: `/users/${fUTE.userId}`
+                                }} >
+                                <h4>{fUTE.user.username}</h4>
+                            </Link>
+                        </div>
+                })}
                 </div>
-                <button className="joinTeam" onClick={(e) => { joinNewTeam(e) }}>Join Team</button>
-                {verifyLeader(userId) ? <button className="editTeam" onClick={() => props.history.push(`/teams/edit/${team.id}`)}>Edit Team</button> : ""}
+                <button className="joinTeam"
+                    onClick={(e) => {
+                        joinNewTeam(e)
+                    }}>Join Team</button>
+                {verifyLeader(playerId) ? <button className="editTeam"
+                    onClick={() => props.history.push(`/teams/edit/${team.id}`
+                    )}>Edit Team</button> : ""}
             </section >
-        </article>
+        </article >
     )
 }

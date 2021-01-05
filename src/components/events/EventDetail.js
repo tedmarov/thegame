@@ -79,7 +79,6 @@ export const EventDetail = (props) => {
     const joinNewEvent = () => {
         existingAttendeeCheck()
             .then((attendeeExists) => {
-                console.log(props)
                 if (!attendeeExists) {
                     joinUserEvent(
                         userId,

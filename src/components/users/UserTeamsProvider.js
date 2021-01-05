@@ -19,14 +19,18 @@ export const UserTeamsProvider = (props) => {
             .then(setUserTeams)
     }
 
-    const joinUserTeam = Team => {
+    const joinUserTeam = (userId, teamId) => {
         return fetch("http://localhost:8088/userTeams", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(Team)
+            body: JSON.stringify({
+                userId,
+                teamId
+            })
         })
+            .then(_ => _.json())
             .then(getUserTeams)
     }
 

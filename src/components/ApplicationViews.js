@@ -1,6 +1,7 @@
 import React from "react"
 import { Route } from "react-router-dom"
 import { Dashboard } from "./nav/Dashboard.js"
+import { Register } from "./auth/Register.js"
 import { UserDetail } from "./users/UserDetail.js"
 import { EventList } from "./events/EventList.js"
 import { EventDetail } from "./events/EventDetail.js"
@@ -35,6 +36,9 @@ export const ApplicationViews = (props) => {
                                     } />
                                     <Route path="/users/:userId(\d+)" render={
                                         props => <UserDetail {...props} />
+                                    } />
+                                    <Route path="/users/edit/:userId(\d+)" render={
+                                        props => <Register {...props} />
                                     } />
                                 </UserTeamsProvider>
                             </TeamProvider>
