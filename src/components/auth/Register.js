@@ -236,7 +236,6 @@ export const Register = (props) => {
                         <textarea ref={shortBio} type="text"
                             rows="5" cols="20"
                             name="detail"
-                            className="form-control"
                             placeholder="Enter detail here"
                             value={user.shortBio}
                             onChange={handleControlledInputChange}

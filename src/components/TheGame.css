@@ -5,11 +5,24 @@
 --------------------------------------------------------------*/
 body,
 textarea {
-  height: fit-content;
   color: #404040;
   font-family: "Fjalla One", Arial, sans-serif;
   font-size: 14px;
   line-height: 1.5;
+}
+
+textarea {
+  height: 100px;
+  width: 85%;
+  border-radius: 15px;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  display: block;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 0.375rem 0.75rem;
 }
 
 .form {
@@ -18,8 +31,7 @@ textarea {
 }
 
 input,
-select,
-textarea {
+select {
   width: 85%;
   border-radius: 15px;
   background-color: #eaebed;
@@ -63,6 +75,7 @@ fieldset {
   border: 0;
   display: block;
   border-radius: 15px;
+  height: auto;
 }
 
 button {
