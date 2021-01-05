@@ -31,7 +31,7 @@ export const EventForm = (props) => {
 
     /*
         If there is a URL parameter, then the user has chosen to
-        edit an animal.
+        edit an event.
             1. Get the value of the URL parameter.
             2. Use that `id` to find the animal.
             3. Update component state variable.

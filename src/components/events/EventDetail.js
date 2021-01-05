@@ -64,6 +64,7 @@ export const EventDetail = (props) => {
     const userId = playerId
 
     // Existing user check; will involve userEvents
+    // Need clarification
     const existingAttendeeCheck = () => {
         console.log(event.id)
         console.log(user.id)
@@ -78,7 +79,6 @@ export const EventDetail = (props) => {
     const joinNewEvent = () => {
         existingAttendeeCheck()
             .then((attendeeExists) => {
-                console.log(props)
                 if (!attendeeExists) {
                     joinUserEvent(
                         userId,

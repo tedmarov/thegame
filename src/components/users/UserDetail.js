@@ -20,7 +20,7 @@ export const UserDetail = (props) => {
     }, [])
 
     useEffect(() => {
-        const user = users.find(u => u.id === userId) || {}
+        const user = users.find(u => u.id === parseInt(props.match.params.userId)) || {}
         setUser(user)
     }, [users])
 
@@ -40,6 +40,7 @@ export const UserDetail = (props) => {
         <article className="usersWindow">
             <section className="userDetail">
                 <h2>User Detail</h2>
+                <img src={user.picUrl} style={{ width: '150px' }} ></img>
                 <h3>Username: {user.username}</h3>
                 <div>E-mail: {user.email}</div>
                 <div>Location Preference: {user.locationPreference}</div>
