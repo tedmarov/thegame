@@ -37,10 +37,12 @@ h1 {
   -webkit-transition: border-color 0.15s ease-in-out,
     box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  border-radius: 15px;
 }
 
 .container--main {
   text-align: center;
+  border-radius: 15px;
 }
 
 .form--main {
@@ -50,6 +52,7 @@ h1 {
   background-color: hsla(0, 0%, 100%, 0.4);
   background-blend-mode: overlay;
   background-repeat: no-repeat;
+  border-radius: 15px;
 }
 
 .button--close {
@@ -60,4 +63,5 @@ h1 {
 .dialog {
   min-width: fit-content;
   min-height: 5rem;
+  border-radius: 15px;
 }
