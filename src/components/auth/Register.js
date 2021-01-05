@@ -232,12 +232,11 @@ export const Register = (props) => {
                         </select>
                     </fieldset>
                     <fieldset>
-                        <label htmlFor="detail"> Short Bio </label>
-                        <textarea ref={shortBio} type="text"
+                        <label htmlFor="shortBio"> Short Bio </label>
+                        <textarea
                             rows="5" cols="20"
-                            name="detail"
-                            placeholder="Enter detail here"
-                            value={user.shortBio}
+                            name="shortBio"
+                            placeholder={user.shortBio}
                             onChange={handleControlledInputChange}
                             required />
                     </fieldset>
