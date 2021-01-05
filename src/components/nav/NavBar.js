@@ -81,7 +81,7 @@ export const NavBar = (props) => {
                             style={{ textAlign: "center" }}>Games</Link></MenuItem>
                         <MenuItem><Link
                             className="menu__link"
-                            to="/game/create"
+                            to="/games/create"
                             style={{ textAlign: 'center' }}>Add a Game</Link></MenuItem>
                         <MenuItem><Link
                             className="menu__link"
