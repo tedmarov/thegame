@@ -21,7 +21,6 @@ h1 {
 }
 
 .form-control {
-  background-color: #eaebed;
   width: 85%;
   display: block;
   height: calc(1.5em + 0.75rem + 2px);

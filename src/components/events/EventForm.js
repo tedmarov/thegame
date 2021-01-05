@@ -193,7 +193,6 @@ export const EventForm = (props) => {
                         <label htmlFor="details"> Short Description </label>
                         <textarea type="text" rows="3" cols="20"
                             name="details"
-                            className="form-control"
                             placeholder="Enter description"
                             value={event.details}
                             required onChange={handleControlledInputChange} />

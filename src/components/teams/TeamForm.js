@@ -107,7 +107,6 @@ export const TeamForm = (props) => {
                         <label htmlFor="description"> Short Description </label>
                         <textarea type="text" rows="3" cols="20"
                             name="description"
-                            className="form-control"
                             placeholder="Tell us a little about your team"
                             value={team.description}
                             required onChange={handleControlledInputChange} />

@@ -103,7 +103,6 @@ export const GameForm = (props) => {
                         <label htmlFor="description"> Short Description </label>
                         <textarea type="text" rows="3" cols="20"
                             name="description"
-                            className="form-control"
                             placeholder="Tell us a little about your Game"
                             value={game.description}
                             required onChange={handleControlledInputChange} />
