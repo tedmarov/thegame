@@ -17,7 +17,6 @@ export const Register = (props) => {
     const password = useRef()
     const verifyPassword = useRef()
     const locationPreference = useRef()
-    const ageRangeId = useRef()
     const shortBio = useRef()
     const consent = useRef()
     const passwordDialog = useRef()
@@ -115,7 +114,7 @@ export const Register = (props) => {
                                         password: password.current.value,
                                         email: email.current.value,
                                         locationPreference: locationPreference.current.value,
-                                        ageRangeId: parseInt(ageRangeId.current.value),
+                                        ageRangeId: ageRangeId.current.value,
                                         shortBio: shortBio.current.value,
                                         consent: Boolean(consent.current.checked)
                                     })
@@ -153,7 +152,7 @@ export const Register = (props) => {
                 <form className="form--main" onSubmit={handleRegister}>
                     <h2>{editMode ? "Update Profile" : "Registration"}</h2>
                     <fieldset>
-                        <label htmlFor="selectPic"> {editMode ? "Upload Pic" : "Select A New Pic or Keep Your Current Pic"} </label>
+                        <label htmlFor="selectPic"> {editMode ? "Select A New Pic or Keep Your Current Pic" : "Upload Pic"} </label>
                         <input ref={picUrl} type="file"
                             accept="image/png, image/jpg"
                             name="picUrl"
@@ -204,7 +203,6 @@ export const Register = (props) => {
                             name="verifyPassword"
                             className="form-control"
                             placeholder="Verify password"
-                            value={user.password}
                             onChange={handleControlledInputChange}
                             required />
                     </fieldset>
@@ -220,9 +218,8 @@ export const Register = (props) => {
                     </fieldset>
                     <fieldset>
                         <label htmlFor="ageRange"> Choose your Age Range </label>
-                        <select defaultValue="" name="ageRange"
-                            ref={ageRangeId}
-                            id="ageRange"
+                        <select name="ageRangeId"
+                            id="ageRangeId"
                             className="form-control"
                             value={user.ageRangeId}
                             onChange={handleControlledInputChange}>
