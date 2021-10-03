@@ -10,7 +10,7 @@ The Game is a social media platform that allows authenticated users to interact 
  
 ## **Features**
 * Users can create Events to invite others and play together.
-* Users can create, edit, and delete their Profiles and Games in order to better define their Events. * Profiles, Games, and Events can be managed as lisy views that include the same capabilities, if the User is the one that created it, i.e. the Host.
+* Users can create, edit, and delete their Profiles and Games in order to better define their Events. * Profiles, Games, and Events can be managed as list views that include the same capabilities, if the User is the one that created it, i.e. the Host.
 * Users have the capability to view all of their Events on a list on their dashbboard, or view Posts by all users as a list on a separate page.
 * Users can search Events and Games
 
